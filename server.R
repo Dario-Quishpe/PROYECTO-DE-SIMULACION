@@ -14,7 +14,7 @@ options(dplyr.summarise.inform = FALSE)
 options(scipen = 999)
 dir.p <- getwd() # Directorio principal
 
-
+##mmmmm
 
 
 
