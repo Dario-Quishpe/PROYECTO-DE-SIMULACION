@@ -9,7 +9,7 @@ options(dplyr.summarise.inform = FALSE)
 
 # UI
 shinyUI(fluidPage(fluidRow(column(tags$img(src="logo.png", width="160px", height="90px"), width=2), # Logo página principal
-                           column(10, h1("TRABAJO GRUPAL DE SIMULACION-(DARIO PARTE)",aling="center", 
+                           column(10, h1("TRABAJO GRUPAL DE SIMULACION",aling="center", 
                                          style = "text-align:center;color:#9A9A9A;padding:20px;font-size:2.2em"))
 ),
 navbarPage("MODULOS", # Menú principal
