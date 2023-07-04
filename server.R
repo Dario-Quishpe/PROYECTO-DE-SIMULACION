@@ -148,15 +148,15 @@ shinyServer(function(input, output, session){
       filter(p_i!=0) |> 
       ggplot(aes(x_i,res)) +
       geom_point(size = 3, shape = 5, colour = "blue")+
-      geom_line(size = 1.2, linetype = "dashed",color="blue")+labs(title='FUNCION DE DISTRIBUCION DE LOS DATOS INGRESADOS', 
+      geom_line(size = 1.2, linetype = "dashed",color="blue")+labs(title='FUNCION DE DISTRIBUCION ACUMULADA DE LOS DATOS INGRESADOS', 
                                                    
-                                                      caption="Funcion de distribucion-Si para el nro final de registros ingresados la funcion de distribucion no es 1 vuelva a ingresar los datos")
+                                                      caption="Funcion de distribucion Acumulada-Si para el nro final de registros ingresados la funcion de distribucion no es 1 vuelva a ingresar los datos")
   })
   output$usuario_resultado <- renderHighchart({
     datos<-v$data|>
       filter(p_i!=0) 
     tb01 <- sim_usuario(datos$x_i,datos$p_i,input$num)
-    hchart(tb01$X,breaks=10,name="histograma de los Nros Aleatorios obtenidos por el metodo aplicado a una variable discreta",color = "#8ACBA9") %>% 
+    hchart(tb01$X,breaks=10,name="Histograma de los Nros Aleatorios obtenidos por el metodo aplicado a una variable discreta",color = "#8ACBA9") %>% 
       hc_title(text = 'HISTOGRAMA',align="center",width="10") |> 
       hc_plotOptions(series = list(animation =TRUE)) |> 
       hc_add_theme(hc_theme_handdrawn())
