@@ -73,7 +73,7 @@ navbarPage("MODULOS", # Menú principal
                                        value = 10000, min = 0, max = 10000),
                           
                           DTOutput("tabla_usuario"),
-                          actionButton("go",label = "Imprimir_F")
+                          actionButton("go",label = "Imprimir_FA")
                         ),
                         
                         # Show plot
@@ -84,7 +84,7 @@ navbarPage("MODULOS", # Menú principal
                           plotOutput("F_distribucion")
                         ),
                       ),
-                      fluidRow(column(width=4, "Resultados",
+                      fluidRow(column(width=4, "RESULTADOS OBTENIDOS DEL METODO",
                                   div(tableOutput("sim_usuario_tabla"))),
                                column(8, box(highchartOutput("usuario_resultado",height = 400), width = 10)),
                                
