@@ -4,6 +4,7 @@ suppressPackageStartupMessages(library(shinydashboard))
 suppressPackageStartupMessages(library(highcharter))
 suppressPackageStartupMessages(library(shinyWidgets))
 suppressPackageStartupMessages(library(DT))
+suppressPackageStartupMessages(library(ggplot2))
 options(dplyr.summarise.inform = FALSE)
 
 
