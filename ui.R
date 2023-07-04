@@ -8,9 +8,10 @@ options(dplyr.summarise.inform = FALSE)
 
 
 # UI
-shinyUI(fluidPage(fluidRow(column(tags$img(src="logo.png", width="160px", height="90px"), width=2), # Logo página principal
-                           column(10, h1("TRABAJO GRUPAL DE SIMULACION",aling="center", 
-                                         style = "text-align:center;color:#9A9A9A;padding:20px;font-size:2.2em"))
+shinyUI(fluidRow(column(width=2,align="center",style="background:#DEE9F9",img(src="https://us.123rf.com/450wm/daryatigrph/daryatigrph1909/daryatigrph190900143/130409028-ilustraci%C3%B3n-de-vector-de-plantilla-de-logotipo-de-b%C3%BAho.jpg", width="150px", height="125px")), # Logo página principal
+                           column(width=8,style="background:#FC8585", h1("TRABAJO GRUPAL DE SIMULACION-2023A ", 
+                                         style = "background:#F9EDE9 ;text-align:center;align-items:center;color:'black';padding:30px;font-size:2.2em")),
+                           column(width=2,align="center",style="background:#DEE9F9",img(src="https://us.123rf.com/450wm/daryatigrph/daryatigrph1909/daryatigrph190900143/130409028-ilustraci%C3%B3n-de-vector-de-plantilla-de-logotipo-de-b%C3%BAho.jpg", width="150px", height="125px"))
 ),
 navbarPage("MODULOS", # Menú principal
            tabPanel("NO ME TOCA ", 
