@@ -424,7 +424,7 @@ shinyServer(function(input, output, session){
   
   output$Pareto_hc<-renderHighchart({
     tbpareto<-sim_Pareto(input$numpare,input$a,input$b)
-    hchart(density(tbpareto$X,name="Densidad",type="area",color="#B7858E"))|> 
+    hchart(tbpareto$X,name="Densidad",type="area",color="#B7858E")|> 
       hc_add_theme(hc_theme_monokai())
   })
   ##Gráfico Beta, aceptación-rechazo
