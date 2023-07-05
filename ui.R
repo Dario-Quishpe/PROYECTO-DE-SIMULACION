@@ -58,9 +58,73 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                       )),
            
            navbarMenu("Simulación de Variables Aleatorias Continuas", 
-                      tabPanel("Transformada Inversa (TRIANGULAR)",style = "background: #D7F4FC",
+                      tabPanel("Transformada Inversa. Distribución Exponencial",style = "background: #D7F4FC",
+                               h2("Método de simulación de la transformada inversa"),
+                               h3("Distribución Exponencial"),
+                               numericInput("a_val", "Ingrese el valor de a. Recuerde que el intervalo es (0,a]:", 
+                                            value = 3, min = 0, max = 1000),
+                               numericInput("nsimtriangular", "Ingrese el número de variables a simular:", 
+                                            value = 1000, min = 1, max = 10000),
+                               fluidRow(column(width=4, "Resultados",
+                                               div(tableOutput("triangular_tabla"))),
+                                        
+                                        column(8, box(highchartOutput("triangular_hc",height = 400), width = 12)),
+                                        
+                               ),
+                               
+                               
+                      ),
+                      tabPanel("Transformada Inversa. Distribución de Cauchy",style = "background: #D7F4FC",
+                               h2("Método de simulación de la transformada inversa"),
+                               h3("Distribución Cauchy"),
+                               numericInput("a_val", "Ingrese el valor de a. Recuerde que el intervalo es (0,a]:", 
+                                            value = 3, min = 0, max = 1000),
+                               numericInput("nsimtriangular", "Ingrese el número de variables a simular:", 
+                                            value = 1000, min = 1, max = 10000),
+                               fluidRow(column(width=4, "Resultados",
+                                               div(tableOutput("triangular_tabla"))),
+                                        
+                                        column(8, box(highchartOutput("triangular_hc",height = 400), width = 12)),
+                                        
+                               ),
+                               
+                               
+                      ),
+                      tabPanel("Transformada Inversa. Distribución Triangular",style = "background: #D7F4FC",
                                h2("Método de simulación de la transformada inversa"),
                                h3("Distribución Triangular"),
+                               numericInput("a_val", "Ingrese el valor de a. Recuerde que el intervalo es (0,a]:", 
+                                            value = 3, min = 0, max = 1000),
+                               numericInput("nsimtriangular", "Ingrese el número de variables a simular:", 
+                                            value = 1000, min = 1, max = 10000),
+                               fluidRow(column(width=4, "Resultados",
+                                               div(tableOutput("triangular_tabla"))),
+                                        
+                                        column(8, box(highchartOutput("triangular_hc",height = 400), width = 12)),
+                                        
+                               ),
+                               
+                               
+                      ),
+                      tabPanel("Transformada Inversa. Distribución Pareto",style = "background: #D7F4FC",
+                               h2("Método de simulación de la transformada inversa"),
+                               h3("Distribución de Pareto"),
+                               numericInput("a_val", "Ingrese el valor de a. Recuerde que el intervalo es (0,a]:", 
+                                            value = 3, min = 0, max = 1000),
+                               numericInput("nsimtriangular", "Ingrese el número de variables a simular:", 
+                                            value = 1000, min = 1, max = 10000),
+                               fluidRow(column(width=4, "Resultados",
+                                               div(tableOutput("triangular_tabla"))),
+                                        
+                                        column(8, box(highchartOutput("triangular_hc",height = 400), width = 12)),
+                                        
+                               ),
+                               
+                               
+                      ),
+                      tabPanel("Transformada Inversa. Distribución Weibull",style = "background: #D7F4FC",
+                               h2("Método de simulación de la transformada inversa"),
+                               h3("Distribución Weibull"),
                                numericInput("a_val", "Ingrese el valor de a. Recuerde que el intervalo es (0,a]:", 
                                             value = 3, min = 0, max = 1000),
                                numericInput("nsimtriangular", "Ingrese el número de variables a simular:", 
@@ -74,7 +138,39 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                
             
                       ),
-                      tabPanel("Aceptación y rechazo (TRIANGULAR)",style = "background: #D7F4FC",
+                      tabPanel("Aceptación y rechazo. Distribución Exponencial",style = "background: #D7F4FC",
+                               h2("Método de simulación Aceptación y rechazo "),
+                               h3("Distribución Exponencial"),
+                               numericInput("a_val_AR", "Ingrese el valor de a. Recuerde que el intervalo es (0,a]:", 
+                                            value = 3, min = 0, max = 1000),
+                               numericInput("nsimtriangular_AR", "Ingrese el número de variables a simular:", 
+                                            value = 1000, min = 1, max = 10000),
+                               fluidRow(column(width=4, "Resultados",
+                                               div(tableOutput("triangular_tabla_AR"))),
+                                        
+                                        column(8, box(highchartOutput("triangular_hc_AR",height = 400), width = 12)),
+                                        
+                               ),
+                               
+                               
+                      ),
+                      tabPanel("Aceptación y rechazo. Distribución de Cauchy",style = "background: #D7F4FC",
+                               h2("Método de simulación Aceptación y rechazo "),
+                               h3("Distribución de Cauchy"),
+                               numericInput("a_val_AR", "Ingrese el valor de a. Recuerde que el intervalo es (0,a]:", 
+                                            value = 3, min = 0, max = 1000),
+                               numericInput("nsimtriangular_AR", "Ingrese el número de variables a simular:", 
+                                            value = 1000, min = 1, max = 10000),
+                               fluidRow(column(width=4, "Resultados",
+                                               div(tableOutput("triangular_tabla_AR"))),
+                                        
+                                        column(8, box(highchartOutput("triangular_hc_AR",height = 400), width = 12)),
+                                        
+                               ),
+                               
+                               
+                      ),
+                      tabPanel("Aceptación y rechazo. Distribución Triangular",style = "background: #D7F4FC",
                                h2("Método de simulación Aceptación y rechazo "),
                                h3("Distribución Triangular"),
                                numericInput("a_val_AR", "Ingrese el valor de a. Recuerde que el intervalo es (0,a]:", 
@@ -90,34 +186,170 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                
                                
                       ),
-                      
-                      # Sidebar
-                      tabPanel("Función de Probabilidad Discreta digitada por el usuario",style = "background: #D7F4FC",
-                      sidebarLayout(
-                        sidebarPanel(
-                          numericInput("num", "Ingrese el numero de variables a simular: ", 
-                                       value = 10000, min = 0, max = 10000),
-                          
-                          DTOutput("tabla_usuario"),
-                          actionButton("go",label = "Imprimir_FA")
-                        ),
-                        
-                        # Show plot
-                        mainPanel(h4("INDICACIONES GENERALES: La 1era tabla a la izquierda representa una pequeña funcion de probabilidades para una variable aleatoria discreta X
-                                     la cual puede tomar valores del 0 al 10 con la probabilidad correspondiente.Dichas probabilidades pueden ser modificadas por el usuario mediante 
-                                     un doble click en la celda correspondiente. Cabe recalcar que se debe cumplir que la probabilidades colocadas para cada valor x que toma X deben 
-                                     sumar 1, y tener solo valores positivos"),
-                          plotOutput("F_distribucion")
-                        ),
-                      ),
-                      fluidRow(column(width=4, "RESULTADOS OBTENIDOS DEL METODO",
-                                  div(tableOutput("sim_usuario_tabla"))),
-                               column(8, box(highchartOutput("usuario_resultado",height = 400), width = 10)),
+                      tabPanel("Aceptación y rechazo. Distribución Pareto",style = "background: #D7F4FC",
+                               h2("Método de simulación Aceptación y rechazo "),
+                               h3("Distribución de Pareto"),
+                               numericInput("a_val_AR", "Ingrese el valor de a. Recuerde que el intervalo es (0,a]:", 
+                                            value = 3, min = 0, max = 1000),
+                               numericInput("nsimtriangular_AR", "Ingrese el número de variables a simular:", 
+                                            value = 1000, min = 1, max = 10000),
+                               fluidRow(column(width=4, "Resultados",
+                                               div(tableOutput("triangular_tabla_AR"))),
+                                        
+                                        column(8, box(highchartOutput("triangular_hc_AR",height = 400), width = 12)),
+                                        
+                               ),
+                               
                                
                       ),
-                      ),
-                      
-           ),
+                      tabPanel("Aceptación y rechazo. Distribución Weibull",style = "background: #D7F4FC",
+                               h2("Método de simulación Aceptación y rechazo "),
+                               h3("Distribución Weibull"),
+                               numericInput("a_val_AR", "Ingrese el valor de a. Recuerde que el intervalo es (0,a]:", 
+                                            value = 3, min = 0, max = 1000),
+                               numericInput("nsimtriangular_AR", "Ingrese el número de variables a simular:", 
+                                            value = 1000, min = 1, max = 10000),
+                               fluidRow(column(width=4, "Resultados",
+                                               div(tableOutput("triangular_tabla_AR"))),
+                                        
+                                        column(8, box(highchartOutput("triangular_hc_AR",height = 400), width = 12)),
+                                        
+                               ),
+                               
+                               
+                      )),
+                      navbarMenu("Simulación de Variables Aleatorias Discretas", 
+                        tabPanel("Transformación Cuantil. Distribución Binomial",style = "background: #D7F4FC",
+                                 h2("Método de simulación Transformación Cuantil"),
+                                 h3("Distribución Binomial"),
+                        sidebarLayout(
+                          sidebarPanel(
+                            numericInput("num", "Ingrese el numero de variables a simular: ", 
+                                         value = 10000, min = 0, max = 10000),
+                            
+                            DTOutput("tabla_usuario"),
+                            actionButton("go",label = "Imprimir_FA")
+                          ),
+                          
+                          # Show plot
+                          mainPanel(h4("INDICACIONES GENERALES: La 1era tabla a la izquierda representa una pequeña funcion de probabilidades para una variable aleatoria discreta X
+                                       la cual puede tomar valores del 0 al 10 con la probabilidad correspondiente.Dichas probabilidades pueden ser modificadas por el usuario mediante 
+                                       un doble click en la celda correspondiente. Cabe recalcar que se debe cumplir que la probabilidades colocadas para cada valor x que toma X deben 
+                                       sumar 1, y tener solo valores positivos"),
+                            plotOutput("F_distribucion")
+                          ),
+                        ),
+                        fluidRow(column(width=4, "RESULTADOS OBTENIDOS DEL METODO",
+                                    div(tableOutput("sim_usuario_tabla"))),
+                                 column(8, box(highchartOutput("usuario_resultado",height = 400), width = 10)),
+                                 
+                        ),
+                        ),
+                        tabPanel("Tabla Guía. Distribución Binomial",style = "background: #D7F4FC",
+                                 h2("Método de simulación Tabla Guía"),
+                                 h3("Distribución Binomial"),
+                                 sidebarLayout(
+                                   sidebarPanel(
+                                     numericInput("num", "Ingrese el numero de variables a simular: ", 
+                                                  value = 10000, min = 0, max = 10000),
+                                     
+                                     DTOutput("tabla_usuario"),
+                                     actionButton("go",label = "Imprimir_FA")
+                                   ),
+                                   
+                                   # Show plot
+                                   mainPanel(h4("INDICACIONES GENERALES: La 1era tabla a la izquierda representa una pequeña funcion de probabilidades para una variable aleatoria discreta X
+                                       la cual puede tomar valores del 0 al 10 con la probabilidad correspondiente.Dichas probabilidades pueden ser modificadas por el usuario mediante 
+                                       un doble click en la celda correspondiente. Cabe recalcar que se debe cumplir que la probabilidades colocadas para cada valor x que toma X deben 
+                                       sumar 1, y tener solo valores positivos"),
+                                             plotOutput("F_distribucion")
+                                   ),
+                                 ),
+                                 fluidRow(column(width=4, "RESULTADOS OBTENIDOS DEL METODO",
+                                                 div(tableOutput("sim_usuario_tabla"))),
+                                          column(8, box(highchartOutput("usuario_resultado",height = 400), width = 10)),
+                                          
+                                 ),
+                        ),
+                        tabPanel("Transformación Cuantil. Función de masa de probabilidad definida por el usuario",style = "background: #D7F4FC",
+                                 h2("Método de simulación Transformación Cuantil"),
+                                 h3("Función de masa definida por el usuario"),
+                                 sidebarLayout(
+                                   sidebarPanel(
+                                     numericInput("num", "Ingrese el numero de variables a simular: ", 
+                                                  value = 10000, min = 0, max = 10000),
+                                     
+                                     DTOutput("tabla_usuario"),
+                                     actionButton("go",label = "Imprimir_FA")
+                                   ),
+                                   
+                                   # Show plot
+                                   mainPanel(h4("INDICACIONES GENERALES: La 1era tabla a la izquierda representa una pequeña funcion de probabilidades para una variable aleatoria discreta X
+                                       la cual puede tomar valores del 0 al 10 con la probabilidad correspondiente.Dichas probabilidades pueden ser modificadas por el usuario mediante 
+                                       un doble click en la celda correspondiente. Cabe recalcar que se debe cumplir que la probabilidades colocadas para cada valor x que toma X deben 
+                                       sumar 1, y tener solo valores positivos"),
+                                             plotOutput("F_distribucion")
+                                   ),
+                                 ),
+                                 fluidRow(column(width=4, "RESULTADOS OBTENIDOS DEL METODO",
+                                                 div(tableOutput("sim_usuario_tabla"))),
+                                          column(8, box(highchartOutput("usuario_resultado",height = 400), width = 10)),
+                                          
+                                 ),
+                        ),
+                        tabPanel("Tabla Guía. Función de masa de probabilidad definida por el usuario",style = "background: #D7F4FC",
+                                 h2("Método de simulación Tabla Guía"),
+                                 h3("Función de masa definida por el usuario"),
+                                 sidebarLayout(
+                                   sidebarPanel(
+                                     numericInput("num", "Ingrese el numero de variables a simular: ", 
+                                                  value = 10000, min = 0, max = 10000),
+                                     
+                                     DTOutput("tabla_usuario"),
+                                     actionButton("go",label = "Imprimir_FA")
+                                   ),
+                                   
+                                   # Show plot
+                                   mainPanel(h4("INDICACIONES GENERALES: La 1era tabla a la izquierda representa una pequeña funcion de probabilidades para una variable aleatoria discreta X
+                                       la cual puede tomar valores del 0 al 10 con la probabilidad correspondiente.Dichas probabilidades pueden ser modificadas por el usuario mediante 
+                                       un doble click en la celda correspondiente. Cabe recalcar que se debe cumplir que la probabilidades colocadas para cada valor x que toma X deben 
+                                       sumar 1, y tener solo valores positivos"),
+                                             plotOutput("F_distribucion")
+                                   ),
+                                 ),
+                                 fluidRow(column(width=4, "RESULTADOS OBTENIDOS DEL METODO",
+                                                 div(tableOutput("sim_usuario_tabla"))),
+                                          column(8, box(highchartOutput("usuario_resultado",height = 400), width = 10)),
+                                          
+                                 ),
+                        ),
+                        tabPanel("Distribución Poisson",style = "background: #D7F4FC",
+                                 h2("Simulación variable discreta con dominio infinito"),
+                                 h3("Distribución de Poisson"),
+                                 sidebarLayout(
+                                   sidebarPanel(
+                                     numericInput("num", "Ingrese el numero de variables a simular: ", 
+                                                  value = 10000, min = 0, max = 10000),
+                                     
+                                     DTOutput("tabla_usuario"),
+                                     actionButton("go",label = "Imprimir_FA")
+                                   ),
+                                   
+                                   # Show plot
+                                   mainPanel(h4("INDICACIONES GENERALES: La 1era tabla a la izquierda representa una pequeña funcion de probabilidades para una variable aleatoria discreta X
+                                       la cual puede tomar valores del 0 al 10 con la probabilidad correspondiente.Dichas probabilidades pueden ser modificadas por el usuario mediante 
+                                       un doble click en la celda correspondiente. Cabe recalcar que se debe cumplir que la probabilidades colocadas para cada valor x que toma X deben 
+                                       sumar 1, y tener solo valores positivos"),
+                                             plotOutput("F_distribucion")
+                                   ),
+                                 ),
+                                 fluidRow(column(width=4, "RESULTADOS OBTENIDOS DEL METODO",
+                                                 div(tableOutput("sim_usuario_tabla"))),
+                                          column(8, box(highchartOutput("usuario_resultado",height = 400), width = 10)),
+                                          
+                                 ),
+                        ),
+                        ),
 )
 )
 )
