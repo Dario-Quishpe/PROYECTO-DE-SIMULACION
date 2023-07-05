@@ -228,14 +228,14 @@ ARBeta2<-function(nsim,alf,bet){
 #TRANSFORMACION CUANTIL # DISTRIBUCION BINOMIAL
 
 
-sim_bino <- function(nsim, prob){
-  
+sim_bino <- function(nsim, n, prob){ #n es el numero de observaciones
+
   binom <- numeric(nsim)
   for (i in 1:nsim) {
-    u <- runif(1) #generamos un numero aleatorio con distribucion uniforme 0,1
-    x <- qbinom(u, size = 1, prob = prob) # utilizamos el método de transformación cuantil
-    binom[i] <- x
+    U <- runif(1)  # Generar valores uniformes U
+    binom[i] <- qbinom(U, size = n, prob = prob) # funcion de distribucion binomial
   }
+  
   return(data.table(N = 1:nsim, X=binom))
 }
 
@@ -687,23 +687,36 @@ shinyServer(function(input, output, session){
   
   #------------------- VARIABLES DISCRETAS 
   
-  
+  #trabla
+  output$tabla_binom <- function(){
+    res <- data.frame(
+      X=sim_bino(input$nsim, input$n, input$prob))
+    
+    kbl(res) %>% 
+      kable_styling(position = "center") %>% 
+      row_spec(0, bold = TRUE, background = "#EA08F3") %>% 
+      scroll_box(width = "300px", height = "400px")
+  } 
   
   # Generar el histograma con renderHighchart
   output$histograma <- renderHighchart({
-    binomial <- sim_bino(input$nsim, input$prob)
+    binomial <- sim_bino(input$nsim, input$n, input$prob)
     
     # Crear el histograma
+    
     hc <- highchart() %>%
       hc_chart(type = "column") %>%
-      hc_add_series(data = binomial$X, name = "Valor de Cauchy Inversa", color = "skyblue") %>%
-      hc_title(text = "Histograma de la Distribución de Cauchy (Transformada Inversa)") %>%
-      hc_xAxis(categories = binomial$N, title = list(text = "Número de Simulación")) %>%
-      hc_yAxis(title = list(text = "Valor de Cauchy Inversa")) %>%
-      hc_colors(c("skyblue")) %>%
+      hc_add_series(data = binomial$X, name = "Valor de la binomial", color = "skyblue") %>%
+      hc_title(text = "Histograma de la Distribución Binomial (Transformación cuantil)") %>%
+      hc_xAxis( title = list(text = "Número de Simulación")) %>%
+      hc_yAxis(title = list(text = "Valor de la binomial")) %>%
+      hc_colors(c("#EA08F3")) %>%
       hc_plotOptions(column = list(colorByPoint = TRUE))
     
     hc
+    
+    
+    
   })
 
     ### INGRESO DE DATOS A LA TABLA EDITABLE PARA MÉTODO DE LA TABLA GUÍA

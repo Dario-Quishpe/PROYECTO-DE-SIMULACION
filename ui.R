@@ -240,9 +240,11 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                h2("Método de Transformación Cuantil"),
                                h3("Distribución Binomial"),
                                numericInput("nsim", "Ingrese el número de simulaciones: ", value = 3, min= 2, max = 1000 ),
+                               numericInput("n", "Ingrese el número de observaciones para la variable: ", value = 3, min= 1, max = 100 ),
                                numericInput("prob", "Ingrese el valor de la probabilida a simular: ", value = 0.5, min= 0.01, max = 1 ),
                                
-                               fluidRow(column(4, " "),
+                               fluidRow(column(width=4, "Resultados",
+                                               div(tableOutput("tabla_binom"))),
                                         #nombre de la tabla a plotar
                                         column(7, box(highchartOutput("histograma")) # nombre de lo q tiene q devolver
                                                
