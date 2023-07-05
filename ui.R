@@ -117,6 +117,21 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                       tabPanel("Aceptación y rechazo. Distribución de Cauchy",style = "background: #D7F4FC",
                                h2("Método de simulación Aceptación y rechazo "),
                                h3("Distribución de Cauchy"),
+                               numericInput("nsim", "Ingrese el número de simulaciones a realizar:", 
+                                            value = 3, min = 2, max = 1000),
+                               numericInput("mu", "Ingrese el valor de mu para simular cauchy:", 
+                                            value = 3, min = 2, max = 100),
+                               numericInput("gamma", "Ingrese el valor de gamma para simular cauchy:", 
+                                            value = 1, min = 1, max = 10),
+                               fluidRow(column(width=4, "Resultados"
+                                               ),
+                                        
+                                        column(8, box(highchartOutput("histograma_cauchy",height = 400), width = 12)),
+                                        
+                               ),
+                               
+                               
+                      
                     
                                
                                

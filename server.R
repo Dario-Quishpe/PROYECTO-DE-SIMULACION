@@ -147,6 +147,36 @@ sim_usuario<-function(valores,probs,num){
 }
 
 
+#distribucion de cauchy #  METODO DE ACEPTACION RECHAZO
+
+sim_cauchy <- function(nsim, mu, gamma){
+  cauchy <- numeric(nsim)
+  i<-1
+  while (i <= nsim) {
+    U <- runif(1)
+    V <- runif(1)
+    
+    #encontremos la constante c que es una cota superior de la funcion de densidad de cauchy
+    f_max <- 1/(pi*gamma)
+    c <- f_max*1.1 #cota superior
+    
+    #encontremos T q sera una distribucion de laplace pues es la q mas se asemeja a la funcion de densida f de cauchy
+    
+    laplace <- mu+gamma*tan(pi*(V-0.5))
+    
+    #calculemos f(T) q es la fucnion de densidad de cauchy en T
+    fx <- 1/(pi*gamma*(1+((laplace-mu)/gamma)^{2}))
+    
+    #aceptar o rechazar
+    if(U* c <= fx){
+      cauchy[i]<- laplace #entra mi punto T
+      i<- i+1
+    }
+    
+  }
+  return(cauchy)
+}
+
 
 #VARIABLES DISCRETAS
 #TRANSFORMACION CUANTIL # DISTRIBUCION BINOMIAL
@@ -363,7 +393,29 @@ shinyServer(function(input, output, session){
       hc_add_theme(hc_theme_economist())
   })
   
- 
+ #histograma de la distribucion de cauchy
+  
+  # Generar el histograma con renderHighchart
+  output$histograma_cauchy <- renderHighchart({
+    cauchy <- sim_cauchy(input$nsim, input$mu, input$gamma)
+    x <- 0:input$nsim
+    
+    # Calcular la curva de densidad de Cauchy
+    f_x <- dcauchy(x, location = input$mu, scale = input$gamma)
+    max_fx <- max(f_x)
+    
+    
+    hchart(cauchy,name="",color = "skyblue") %>% 
+      hc_title(text = 'HISTOGRAMA',align="center",width="25") |> 
+      hc_plotOptions(series = list(animation = FALSE)) |> 
+      hc_add_theme(hc_theme_economist())
+    
+    
+    
+    
+    })
+  
+  
   
   #------------------- VARIABLES DISCRETAS 
   
@@ -388,6 +440,9 @@ shinyServer(function(input, output, session){
     
     hc
   })
+  
+  
+  
   
 })
 
