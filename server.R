@@ -157,7 +157,7 @@ sim_bino <- function(nsim, prob){
   binom <- numeric(nsim)
   for (i in 1:nsim) {
     u <- runif(1) #generamos un numero aleatorio con distribucion uniforme 0,1
-    x <- ifelse(u < prob, 1, 0)
+    x <- qbinom(u, size = 1, prob = prob) # utilizamos el método de transformación cuantil
     binom[i] <- x
   }
   return(binom)
@@ -372,22 +372,22 @@ shinyServer(function(input, output, session){
   # Generar el histograma con renderHighchart
   output$histograma <- renderHighchart({
     binomial <- sim_bino(input$nsim, input$prob)
+    # Calcular frecuencias
+    #frecuencias <- table(binomial)
+    datos <- data.frame(x = seq(1:input$nsim), y = binomial)
+    
     # Crear histograma
     hc <- highchart() %>%
       hc_chart(type = "column") %>%
-      hc_add_series(name = "Frecuencia", data = table(binomial)) %>%
+      hc_add_series(data = datos, name = "Frecuencia") %>%
       hc_title(text = "Simulación de Distribución Binomial") %>%
-      hc_xAxis(title = list(text = "Éxito/Fracaso")) %>%
+      hc_xAxis( categories = as.character(datos$x),title = list(text = "Número de Simulación")) %>%
       hc_yAxis(title = list(text = "Frecuencia")) %>%
       hc_colors(c("skyblue")) %>%
       hc_plotOptions(column = list(colorByPoint = TRUE))
     
-    
+    hc
   })
-  
-  
-  
-  
   
 })
 
