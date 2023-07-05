@@ -160,7 +160,7 @@ sim_cauchy <- function(nsim, mu, gamma){
     f_max <- 1/pi*(1+mu^2)
     c <- f_max*1.1 #cota superior
     
-    #encontremos T q sera una distribucion de laplace pues es la q mas se asemeja a la funcion de densida f de cauchy
+    #encontremos T q sera una distribucion de cauchy pues es la q mas se asemeja a la funcion de densida f de cauchy
     
     laplace <- mu+gamma*tan(pi*V) #forma simplificada de cauchy
     
