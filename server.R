@@ -400,9 +400,6 @@ shinyServer(function(input, output, session){
     cauchy <- sim_cauchy(input$nsim, input$mu, input$gamma)
     x <- 0:input$nsim
     
-    # Calcular la curva de densidad de Cauchy
-    f_x <- dcauchy(x, location = input$mu, scale = input$gamma)
-    max_fx <- max(f_x)
     
     
     hchart(cauchy,name="",color = "skyblue") %>% 
