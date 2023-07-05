@@ -82,6 +82,29 @@ sim_usuario<-function(valores,probs,num){
   }
   return(data.table(N = 1:num, X=res_))
 }
+
+
+#VARIABLES DISCRETAS
+#TRANSFORMACION CUANTIL # DISTRIBUCION BINOMIAL
+
+
+sim_bino <- function(nsim, prob){
+  
+  binom <- 0 
+  for (i in nsim) {
+    u <- runif(1) #generamos un numero aleatorio con distribucion uniforme 0,1
+    x <- ifelse(u < prob, 1, 0)
+    binom <- binom+x
+  }
+  return(binom)
+}
+
+
+
+#________________________________________________________
+
+
+
 shinyServer(function(input, output, session){
   
   #### Tabla Simulacion Distribucion Triangular (INVERSION)
@@ -174,11 +197,26 @@ shinyServer(function(input, output, session){
   
   
   
-  #camn+hbfychr
- #fjlnvagg
+  #------------------- VARIABLES DISCRETAS 
   
- 
+
   
+  # Generar el histograma con renderHighchart
+  output$histograma <- renderHighchart({
+    tb <- sim_bino(input$nsim, input$prob)
+    
+    hc <- highchart() %>%
+      hc_chart(type = "column") %>%
+      hc_title(text = "Simulación de Distribución Binomial") %>%
+      hc_xAxis(categories = c("Éxito", "Fracaso")) %>%
+      hc_yAxis(title = list(text = "Frecuencia")) %>%
+      hc_add_series(name = "Histograma", data = tb, colorByPoint = TRUE)
+    
+    hc
+  })
+  
+  
+
   
 })
 

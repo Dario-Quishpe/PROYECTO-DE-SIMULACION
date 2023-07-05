@@ -12,6 +12,7 @@ shinyUI(fluidPage(fluidRow(column(tags$img(src="logo.png", width="160px", height
                            column(10, h1("TRABAJO GRUPAL DE SIMULACION",aling="center", 
                                          style = "text-align:center;color:#9A9A9A;padding:20px;font-size:2.2em"))
 ),
+
 navbarPage("MODULOS", # Menú principal
            tabPanel("NO ME TOCA ", 
                     h4("Una máquina produce tiras de goma de longitud aleatoria con distribución exp(lambda) (en metros). Después de fabricadas, 
@@ -90,6 +91,29 @@ navbarPage("MODULOS", # Menú principal
                       ),
                       
            ),
+           
+           navbarMenu("Simulación de Variables Aleatorias discretas", 
+                      tabPanel("Método de Transformación Cuantil", style = "background: #D7F4FC",
+                               h2("Simulación de una Distribución Binomial"),
+                               numericInput("nsim", "Ingrese el número de simulaciones: ", value = 3, min= 2, max = 1000 ),
+                               numericInput("prob", "Ingrese el valor de la probabilida a simular: ", value = 0.5, min= 0.01, max = 1 ),
+                               p(),
+                               
+                               fluidRow(column(4, " "),
+                                              #nombre de la tabla a plotar
+                                        column(7, box(highchartOutput("histograma")) # nombre de lo q tiene q devolver
+                                        
+                               ),
+                              
+                      
+                      
+    
+                              ),
+                  ),
+           
+                )
+
+
 )
 )
 )
