@@ -79,7 +79,7 @@ sim_usuario<-function(valores,probs,num){
   }
   res_<-numeric(num)
   for(i in 1:num){
-    res_[i]<-TrCuantil(valores,probs)
+    res_[i]<-Tr_cuantil_unidad(valores,probs)
   }
   return(data.table(N = 1:num, X=res_))
 }
