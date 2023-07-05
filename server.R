@@ -186,6 +186,32 @@ shinyServer(function(input, output, session){
       row_spec(0, bold = TRUE, background = "skyblue") %>% 
       scroll_box(width = "300px", height = "400px")
   }
+  
+  ###Simulación Distribucion exponencial
+  simexponencial <- function(lambda, num){
+    U <- runif(num)
+    X <- -log(U)/lambda
+    return(X)
+  }
+  
+  output$exponencial <- function(){
+    res <- data.frame(n=seq(1:input$numexp),
+                      X=simexponencial(input$lambdaexp, input$numexp))
+    
+    kbl(res) %>% 
+      kable_styling(position = "center") %>% 
+      row_spec(0, bold = TRUE, background = "skyblue") %>% 
+      scroll_box(width = "300px", height = "400px")
+  } 
+  
+  output$exponencial_hc <- renderHighchart({
+    
+    X<-simexponencial(input$lambdaexp, input$numexp)
+    hchart(X,name="",color = "skyblue") %>% 
+      hc_title(text = 'HISTOGRAMA',align="center",width="25") |> 
+      hc_plotOptions(series = list(animation = FALSE)) |> 
+      hc_add_theme(hc_theme_economist())
+  })
   #### Tabla Simulacion Distribucion Triangular (INVERSION)
   
   output$triangular_tabla <- function(){

@@ -61,7 +61,19 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                       tabPanel("Transformada Inversa. Distribución Exponencial",style = "background: #D7F4FC",
                                h2("Método de simulación de la transformada inversa"),
                                h3("Distribución Exponencial"),
-                      
+                               p(),
+                               fluidRow(
+                                 column(width=3,
+                                        h3("Distribución Exponencial"),
+                                        numericInput("lambdaexp", "Ingrese el valor de lambda:", 
+                                                     value = 4, min = 0.01, max = 10, step = 0.01),
+                                        numericInput("numexp", "Ingrese el número de variables a simular:", 
+                                                     value = 200, min = 1, max = 1000),
+                                        column(12, "Resultados",
+                                               div(tableOutput("exponencial")))
+                                 ),
+                                 column(width=9,
+                                         box(highchartOutput("exponencial_hc",height = 400), width = 12)))
                                
                                
                       ),
