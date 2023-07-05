@@ -157,15 +157,15 @@ sim_cauchy <- function(nsim, mu, gamma){
     V <- runif(1)
     
     #encontremos la constante c que es una cota superior de la funcion de densidad de cauchy
-    f_max <- 1/(pi*gamma)
+    f_max <- 1/pi*(1+mu^2)
     c <- f_max*1.1 #cota superior
     
     #encontremos T q sera una distribucion de laplace pues es la q mas se asemeja a la funcion de densida f de cauchy
     
-    laplace <- mu+gamma*tan(pi*(V-0.5))
+    laplace <- mu+gamma*tan(pi*V) #forma simplificada de cauchy
     
     #calculemos f(T) q es la fucnion de densidad de cauchy en T
-    fx <- 1/(pi*gamma*(1+((laplace-mu)/gamma)^{2}))
+    fx <- 1/(pi*(1+laplace^{2}))
     
     #aceptar o rechazar
     if(U* c <= fx){
