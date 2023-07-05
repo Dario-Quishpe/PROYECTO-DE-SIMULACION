@@ -124,13 +124,6 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                         column(8, box(highchartOutput("Pareto_hc",height = 400), width = 12))),
                                
                       ),
-                      tabPanel("Transformada Inversa. Distribución Weibull",style = "background: #D7F4FC",
-                               h2("Método de simulación de la transformada inversa"),
-                               h3("Distribución Weibull"),
-                          
-                               
-            
-                      ),
                      
                       tabPanel("Aceptación y rechazo. Distribución de Cauchy",style = "background: #D7F4FC",
                                h2("Método de simulación Aceptación y rechazo "),
@@ -185,13 +178,6 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                         column(8, box(highchartOutput("Beta_hc",height = 400), width = 12)),
                                         
                                ),
-                               
-                               
-                      ),
-                      tabPanel("Aceptación y rechazo. Distribución Weibull",style = "background: #D7F4FC",
-                               h2("Método de simulación Aceptación y rechazo "),
-                               h3("Distribución Weibull"),
-           
                                
                                
                       ),
