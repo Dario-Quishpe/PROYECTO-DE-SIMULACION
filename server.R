@@ -145,6 +145,30 @@ sim_usuario<-function(valores,probs,num){
   }
   return(data.table(N = 1:num, X=res_))
 }
+
+
+
+#VARIABLES DISCRETAS
+#TRANSFORMACION CUANTIL # DISTRIBUCION BINOMIAL
+
+
+sim_bino <- function(nsim, prob){
+  
+  binom <- 0 
+  for (i in nsim) {
+    u <- runif(1) #generamos un numero aleatorio con distribucion uniforme 0,1
+    x <- ifelse(u < prob, 1, 0)
+    binom <- binom+x
+  }
+  return(binom)
+}
+
+
+
+#________________________________________________________
+
+
+
 shinyServer(function(input, output, session){
   
   ####Numero pseudoaletorios
@@ -341,8 +365,29 @@ shinyServer(function(input, output, session){
   
  
   
+  #------------------- VARIABLES DISCRETAS 
+  
+  
+  
+  # Generar el histograma con renderHighchart
+  output$histograma <- renderHighchart({
+    tb <- sim_bino(input$nsim, input$prob)
+    
+    hc <- highchart() %>%
+      hchart(tb,name="",color = "skyblue") %>% 
+      hc_title(text = 'HISTOGRAMA',align="center",width="25") |> 
+      hc_plotOptions(series = list(animation = FALSE)) |> 
+      hc_add_theme(hc_theme_economist())
+    
+    
+  })
+  
+  
+  
+  
   
 })
+
 
 
 

@@ -151,12 +151,33 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                
                                
                       )),
-                      navbarMenu("Simulación de Variables Aleatorias Discretas", 
-                        tabPanel("Transformación Cuantil. Distribución Binomial",style = "background: #D7F4FC",
-                                 h2("Método de simulación Transformación Cuantil"),
-                                 h3("Distribución Binomial"),
+           
+           navbarMenu("Simulación de Variables Aleatorias discretas", 
+                      tabPanel("Método de Transformación Cuantil", style = "background: #D7F4FC",
+                               h2("Simulación de una Distribución Binomial"),
+                               numericInput("nsim", "Ingrese el número de simulaciones: ", value = 3, min= 2, max = 1000 ),
+                               numericInput("prob", "Ingrese el valor de la probabilida a simular: ", value = 0.5, min= 0.01, max = 1 ),
+                               
+                               fluidRow(column(4, " "),
+                                        #nombre de la tabla a plotar
+                                        column(7, box(highchartOutput("histograma")) # nombre de lo q tiene q devolver
+                                               
+                                        ),
+                                        
+                                        
+                                        
+                                        
+                               ),
+                      ),
+                      
+          
+           
+                                 
+                              
                         
-                        ),
+                       
+           
+           
                         tabPanel("Tabla Guía. Distribución Binomial",style = "background: #D7F4FC",
                                  h2("Método de simulación Tabla Guía"),
                                  h3("Distribución Binomial"),
