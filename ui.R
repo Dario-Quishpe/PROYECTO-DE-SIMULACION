@@ -293,11 +293,6 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                           
                                  ),
                         ),
-                        tabPanel("Tabla Guía. Función de masa de probabilidad definida por el usuario",style = "background: #D7F4FC",
-                                 h2("Método de simulación Tabla Guía"),
-                                 h3("Función de masa definida por el usuario"),
-                                 
-                        ),
 
                         tabPanel("Tabla Guía: Función de Probabilidad Discreta digitada por el usuario",style = "background: #D7F4FC",
                                sidebarLayout(
