@@ -421,21 +421,13 @@ shinyServer(function(input, output, session){
   # Generar el histograma con renderHighchart
   output$histograma <- renderHighchart({
     binomial <- sim_bino(input$nsim, input$prob)
-    # Calcular frecuencias
-    #frecuencias <- table(binomial)
-    datos <- data.frame(x = seq(1:input$nsim), y = binomial)
     
-    # Crear histograma
-    hc <- highchart() %>%
-      hc_chart(type = "column") %>%
-      hc_add_series(data = datos, name = "Frecuencia") %>%
-      hc_title(text = "Simulación de Distribución Binomial") %>%
-      hc_xAxis( categories = as.character(datos$x),title = list(text = "Número de Simulación")) %>%
-      hc_yAxis(title = list(text = "Frecuencia")) %>%
-      hc_colors(c("skyblue")) %>%
-      hc_plotOptions(column = list(colorByPoint = TRUE))
+    hchart(binomial,name="",color = "skyblue") %>% 
+      hc_title(text = 'HISTOGRAMA',align="center",width="25") |> 
+      hc_plotOptions(series = list(animation = FALSE)) |> 
+      hc_add_theme(hc_theme_economist())
     
-    hc
+    
   })
   
   
