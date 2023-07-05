@@ -94,6 +94,15 @@ sim_triangular <- function(a,nsim){
   return(res)
 }
 
+# DISTRIBUCION PARETO TRANSFORMADA INVERSA
+sim_Pareto<-function(nsim,a,b){
+  U<-runif(nsim)
+  X<-b/((U)^{1/2})
+  res<-data.table(N=1:nsim,X=X)
+  return(res)
+}
+
+
 
 
 ##Distribucion triangular con metodo de aceptacion y rechazo
@@ -193,6 +202,27 @@ sim_cauchy_inversa <- function(nsim_1, mu_1, gamma_1){
   return(data.table(N = 1:nsim_1, X=cauchy_inversa))
 }
 
+##Método Aceptación-Rechazo Beta
+ARBeta<-function(alf,bet){
+  c<-dbeta((alf-1)/(alf+bet-2),alf,bet)
+  while(TRUE){
+    U<-runif(1,0,1)
+    X<-runif(1,0,1)
+    if(c*U<=dbeta(X,alf,bet))
+      return(X)
+  }
+  
+}
+
+ARBeta2<-function(nsim,alf,bet){
+  X<-numeric(nsim)
+  for(i in 1:nsim){
+    X[i]<-ARBeta(alf,bet)
+  }
+  res<-data.table(N=1:nsim,X=X)
+  return(res)
+}
+
 
 #VARIABLES DISCRETAS
 #TRANSFORMACION CUANTIL # DISTRIBUCION BINOMIAL
@@ -209,7 +239,29 @@ sim_bino <- function(nsim, prob){
   return(data.table(N = 1:nsim, X=binom))
 }
 
+##Método tabla guía Binomial
 
+TGB<- function(n,p,nsim) {
+  m<-n-1
+  x<-0:n
+  fmp<-dbinom(x,n,p)
+  Fx <- cumsum(fmp)
+  g <- rep(1,m)
+  i <- 1
+  for(j in 2:m) {
+    while (Fx[i] < (j-1)/(m)) i <- i+1
+    g[j] <- i
+  }
+  X <- numeric(nsim)
+  U <- runif(nsim)
+  for(j in 1:nsim) {
+    i <- g[floor(U[j]*(m))+1]
+    while (Fx[i] < U[j]) i <- i + 1
+    X[j] <- x[i]
+  }
+  res<-data.table(N=1:nsim,X=X)
+  return(res)
+}
 
 #________________________________________________________
 
@@ -294,6 +346,18 @@ shinyServer(function(input, output, session){
       row_spec(0, bold = TRUE, background = "#5ED7EF") %>% 
       scroll_box(width = "300px", height = "400px")
   }
+  
+  ####Tabla simulación Distrbución Pareto por Transformación Inversa
+  
+  output$Tabla_Pareto<-function(){
+    respareto<-data.frame(sim_Pareto(input$numpare,input$a,input$b))
+    
+    kbl(respareto) %>% 
+      kable_styling(position = "center") %>% 
+      row_spec(0, bold = TRUE, background = "#B88F96") %>% 
+      scroll_box(width = "300px", height = "300px")
+    
+  }
   #### Tabla Simulacion Distribucion Triangular (INVERSION)
   output$triangular_hc <- renderHighchart({
     
@@ -322,6 +386,54 @@ shinyServer(function(input, output, session){
       hc_title(text = 'HISTOGRAMA',align="center",width="25") |> 
       hc_plotOptions(series = list(animation = FALSE)) |> 
       hc_add_theme(hc_theme_handdrawn())
+  })
+  
+  ##Tabla simulación Binomial, método tabla  guía
+  
+  
+  output$BinomTG<-function(){
+    tg<-data.frame(TGB(input$n1,input$p1,input$nbtg))
+    kbl(tg) %>% 
+      kable_styling(position = "center") %>% 
+      row_spec(0, bold = TRUE, background = "#B88F96") %>% 
+      scroll_box(width = "300px", height = "300px")
+  }
+  ##Tabla simulación Beta Aceptación-Rechazo
+  
+  output$Betatabla_AR<-function(){
+    Beta<-data.frame(ARBeta2(input$nsimbeta,input$alfa,input$beta))
+    kbl(Beta) %>% 
+      kable_styling(position = "center") %>% 
+      row_spec(0, bold = TRUE, background = "#B88F96") %>% 
+      scroll_box(width = "300px", height = "300px")
+    
+  }
+  
+  ##Gráfico Binomial, Tabla guía
+  output$BinoTG_hc<-renderHighchart({
+    TG<-TGB(input$n1,input$p1,input$nbtg)
+    hchart(TG, "column", hcaes(x = X, y = N))|> 
+      hc_title(text = 'Gráfico Barras Método Tabla guía Binomial',width="25")|>
+      hc_add_theme(hc_theme_darkunica())
+    
+    
+  })
+  
+  
+  ##Gráfico Pareto, Transformación Inversa
+  
+  output$Pareto_hc<-renderHighchart({
+    tbpareto<-sim_Pareto(input$numpare,input$a,input$b)
+    hchart(density(tbpareto$X,name="Densidad",type="area",color="#B7858E"))|> 
+      hc_add_theme(hc_theme_monokai())
+  })
+  ##Gráfico Beta, aceptación-rechazo
+  
+  output$Beta_hc<-renderHighchart({
+    Beta<-ARBeta2(input$nsimbeta,input$alfa,input$beta)
+    hchart(Beta$X,color="#F23F5E",name="Hitograma Beta")|>
+      hc_title(text = 'Histograma Simulación Beta',align="center",width="25") |>
+      hc_add_theme(hc_theme_bloom())
   })
   
   ### INGRESO DE DATOS A LA TABLA EDITABLE Y GENERACION DE SU CORRESPONDIENTE FUNCION DE DISTRIBUCION

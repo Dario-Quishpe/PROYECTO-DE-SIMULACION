@@ -110,11 +110,18 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                
                                
                       ),
-                      tabPanel("Transformada Inversa. Distribución Pareto",style = "background: #D7F4FC",
+                      tabPanel("Transformada Inversa (Pareto)",
                                h2("Método de simulación de la transformada inversa"),
-                               h3("Distribución de Pareto"),
-                      
-                               
+                               h3("Distribución Pareto"),
+                               numericInput("a", "Ingrese el valor de a, el cual debe de ser mayor a 0:", 
+                                            value = 4, min = 0.01, max = 10, step = 0.01),
+                               numericInput("b", "Ingrese el valor de b, el cual debe de ser mayor a 0:", 
+                                            value = 4, min = 0.01, max = 10, step = 0.01),
+                               numericInput("numpare", "Ingrese el número de variables a simular:", 
+                                            value = 10, min = 1, max = 1000),
+                               fluidRow(column(width=4, "Resultados",
+                                               div(tableOutput("Tabla_Pareto"))),
+                                        column(8, box(highchartOutput("Pareto_hc",height = 400), width = 12))),
                                
                       ),
                       tabPanel("Transformada Inversa. Distribución Weibull",style = "background: #D7F4FC",
@@ -163,10 +170,21 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                
                                
                       ),
-                      tabPanel("Aceptación y rechazo. Distribución Pareto",style = "background: #D7F4FC",
+                      tabPanel("Aceptación y rechazo. Distribución Beta",style = "background: #D7F4FC",
                                h2("Método de simulación Aceptación y rechazo "),
-                               h3("Distribución de Pareto"),
-                     
+                               h3("Distribución Beta"),
+                               numericInput("alfa", "Ingrese el valor de alfa:", 
+                                            value = 2, min = 2, max = 1000),
+                               numericInput("nsimbeta", "Ingrese el número de variables a simular:", 
+                                            value = 4, min = 2, max = 10000),
+                               numericInput("beta", "Ingrese el valor de beta:", 
+                                            value = 3, min = 0, max = 1000),
+                               fluidRow(column(width=4, "Resultados",
+                                               div(tableOutput("Betatabla_AR"))),
+                                        
+                                        column(8, box(highchartOutput("Beta_hc",height = 400), width = 12)),
+                                        
+                               ),
                                
                                
                       ),
@@ -204,11 +222,25 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                        
            
            
-                        tabPanel("Tabla Guía. Distribución Binomial",style = "background: #D7F4FC",
-                                 h2("Método de simulación Tabla Guía"),
-                                 h3("Distribución Binomial"),
-                    
-                        ),
+                      tabPanel("Tabla guía.Distribución Binomial",style = "background: #D7F4FC",
+                               h2("Método de simulación Método de tabla guía"),
+                               h3("Distribución Binomial"),
+                               numericInput("n1","Ingrese el valor de n:",
+                                            value=100,min=1,max=100),
+                               numericInput("p1","Ingrese el valor de p:",
+                                            value=0.1,min=0.001,max=1),
+                               numericInput("nbtg","Ingrese el número  de variables a simular:",
+                                            value=100,min=1,max=1000),
+                               
+                               fluidRow(column(width=4, "Resultados",
+                                               div(tableOutput("BinomTG"))),
+                                        
+                                        column(8, box(highchartOutput("BinoTG_hc",height = 400), width = 12)),
+                                        
+                               ),
+                               
+                               
+                      ),
                         tabPanel("Transformación Cuantil. Función de masa de probabilidad definida por el usuario",style = "background: #D7F4FC",
                                  h2("Método de simulación Transformación Cuantil"),
                                  h3("Función de masa definida por el usuario"),
