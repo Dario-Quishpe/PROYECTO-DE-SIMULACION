@@ -335,8 +335,8 @@ shinyServer(function(input, output, session){
     
     kbl(res) %>% 
       kable_styling(position = "center") %>% 
-      row_spec(0, bold = TRUE, background = "skyblue") %>% 
-      scroll_box(width = "300px", height = "400px")
+      row_spec(0, bold = TRUE, background = "#F57B9A") %>% 
+      scroll_box(width = "600px", height = "400px")
   }
   ###Lehmer
   output$lhm <- function(){
@@ -344,8 +344,8 @@ shinyServer(function(input, output, session){
                     X=lehmer(input$xolhm,str_length(input$xolhm),input$clhm,str_length(input$clhm),input$numlhm))
     kbl(res) %>% 
       kable_styling(position = "center") %>% 
-      row_spec(0, bold = TRUE, background = "skyblue") %>% 
-      scroll_box(width = "300px", height = "400px")
+      row_spec(0, bold = TRUE, background = "#F57B9A") %>% 
+      scroll_box(width = "600px", height = "400px")
   }
   
   ###Congruencial simple
@@ -354,8 +354,8 @@ shinyServer(function(input, output, session){
                     X=congruencialsimple(input$xocs,input$acs,input$ccs,input$mcs,input$numcs))
     kbl(res) %>% 
       kable_styling(position = "center") %>% 
-      row_spec(0, bold = TRUE, background = "skyblue") %>% 
-      scroll_box(width = "300px", height = "400px")
+      row_spec(0, bold = TRUE, background = "#F57B9A") %>% 
+      scroll_box(width = "600px", height = "400px")
   }
   ###Congruencial Multiplicativo
   output$cmult<-function(){
@@ -363,8 +363,8 @@ shinyServer(function(input, output, session){
                     X=congruencialmult(input$xocmult,input$acmult,input$mcmult,input$numcmult))
     kbl(res) %>% 
       kable_styling(position = "center") %>% 
-      row_spec(0, bold = TRUE, background = "skyblue") %>% 
-      scroll_box(width = "300px", height = "400px")
+      row_spec(0, bold = TRUE, background = "#F57B9A") %>% 
+      scroll_box(width = "600px", height = "400px")
   }
   
   ###Simulación Distribucion exponencial. Transformada inversa
