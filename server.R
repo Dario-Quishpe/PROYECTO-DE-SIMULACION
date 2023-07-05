@@ -6,6 +6,7 @@ suppressPackageStartupMessages(library(shinydashboard))
 suppressPackageStartupMessages(library(tidyr))
 suppressPackageStartupMessages(library(sparkline))
 suppressPackageStartupMessages(library(kableExtra))
+suppressPackageStartupMessages(library(stringr))
 
 #getDependency('sparkline')
 options(dplyr.summarise.inform = FALSE)
@@ -15,9 +16,75 @@ options(dplyr.summarise.inform = FALSE)
 options(scipen = 999)
 dir.p <- getwd() # Directorio principal
 
-##mmmmm
+###Numeros Pseudoaleatorios
+##Cuadrados medios
+nummedio <- function(xo, n){
+  x1 <- xo*xo
+  res <- 0
+  if(str_length(x1) == 2*n){
+    res <- str_sub(x1, start = (0.5*n+1), end = (1.5*n))
+  } else {
+    x1 <- paste0(rep(0, (2*n-str_length(x1))), x1)
+    res <- str_sub(x1, start = (0.5*n+1), end = (1.5*n))
+  }
+  return(res)
+}
+cuadradosmedios <- function(xo, n, num){
+  vector <- numeric(num + 1)
+  vector[1] <- xo
+  for(i in 1:num){
+    vector[i+1] <- as.numeric(nummedio(vector[i], n))
+  }
+  vector<-vector/(10^n)
+  return(vector[-1])
+}
+##Lehmer
+kcifras<-function(xo,n,c,k){
+  x1 <- xo*c
+  res <- 0
+  if(str_length(x1) == n+k){
+    aux1<-str_sub(x1, start = 1, end = k)
+    aux2<-str_sub(x1, start = k+1, end = n+k)
+    res<-as.numeric(aux2)-as.numeric(aux1)
+  } else {
+    x1 <- paste0(rep(0, (n+k-str_length(x1))), x1)
+    aux1<-str_sub(x1, start = 1, end = k)
+    aux2<-str_sub(x1, start = k+1, end = n+k)
+    res<-as.numeric(aux2)-as.numeric(aux1)
+  }
+  return(res)
+}  
 
+lehmer<-function(xo,n,c,k,num){
+  vector<-numeric(num+1)
+  vector[1]<-xo
+  for (i in 1:num) {
+    vector[i+1]<-kcifras(vector[i],n,c,k)
+  }
+  vector<-vector/(10^n)
+  return(vector[-1])
+}
 
+##Congruencial Simple
+congruencialsimple<-function(xo,a,c,m,n){
+  x<-numeric(n+1)
+  x[1]<-xo
+  for (i in 1:n) {
+    x[i+1]<-(a*x[i]+c)%%m
+  }
+  u=x/m
+  return(u[-1])
+}   
+##Congruencial Multiplicativo
+congruencialmult<-function(xo,a,m,n){
+  x<-numeric(n+1)
+  x[1]<-xo
+  for (i in 1:n) {
+    x[i+1]<-(a*x[i])%%m
+  }
+  u=x/m
+  return(u[-1])
+}   
 
 ### DISTRIBUCION TRIANGULAR CON INVERSA
 sim_triangular <- function(a,nsim){
@@ -28,11 +95,6 @@ sim_triangular <- function(a,nsim){
 }
 
 
-sim_pan <- function(nsim, a, b, mu, sigma){
-  res <- data.table(N = 1:nsim, Produccion = rpar(nsim, a, b), Demanda = rnorm(nsim, mean = mu, sd = sqrt(sigma)))
-  res[, Marca := ifelse(Produccion > Demanda, 1, 0)]
-  return(res)
-}
 
 ##Distribucion triangular con metodo de aceptacion y rechazo
 sim_triangular_AR<-function(a,nsim){
@@ -85,6 +147,45 @@ sim_usuario<-function(valores,probs,num){
 }
 shinyServer(function(input, output, session){
   
+  ####Numero pseudoaletorios
+  ###Cuadrados Medios
+  output$cm <- function(){
+    res <- data.frame(i=seq(1:input$numcm), 
+                      X=cuadradosmedios(xo=input$xocm, n = input$ncm, num = input$numcm))
+    
+    kbl(res) %>% 
+      kable_styling(position = "center") %>% 
+      row_spec(0, bold = TRUE, background = "skyblue") %>% 
+      scroll_box(width = "300px", height = "400px")
+  }
+  ###Lehmer
+  output$lhm <- function(){
+    res<-data.frame(n=seq(1:input$numlhm),
+                    X=lehmer(input$xolhm,str_length(input$xolhm),input$clhm,str_length(input$clhm),input$numlhm))
+    kbl(res) %>% 
+      kable_styling(position = "center") %>% 
+      row_spec(0, bold = TRUE, background = "skyblue") %>% 
+      scroll_box(width = "300px", height = "400px")
+  }
+  
+  ###Congruencial simple
+  output$cs<-function(){
+    res<-data.frame(n=seq(1:input$numcs),
+                    X=congruencialsimple(input$xocs,input$acs,input$ccs,input$mcs,input$numcs))
+    kbl(res) %>% 
+      kable_styling(position = "center") %>% 
+      row_spec(0, bold = TRUE, background = "skyblue") %>% 
+      scroll_box(width = "300px", height = "400px")
+  }
+  ###Congruencial Multiplicativo
+  output$cmult<-function(){
+    res<-data.frame(n=seq(1:input$numcmult),
+                    X=congruencialmult(input$xocmult,input$acmult,input$mcmult,input$numcmult))
+    kbl(res) %>% 
+      kable_styling(position = "center") %>% 
+      row_spec(0, bold = TRUE, background = "skyblue") %>% 
+      scroll_box(width = "300px", height = "400px")
+  }
   #### Tabla Simulacion Distribucion Triangular (INVERSION)
   
   output$triangular_tabla <- function(){
@@ -174,9 +275,6 @@ shinyServer(function(input, output, session){
   }
   
   
-  
-  #camn+hbfychr
- #fjlnvagg
   
  
   

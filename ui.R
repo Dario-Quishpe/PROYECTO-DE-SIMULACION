@@ -15,23 +15,48 @@ shinyUI(fluidPage(fluidRow(column(width=2,align="center",style="background:#DEE9
                                          style = "background:#F9EDE9 ;text-align:center;align-items:center;color:'black';padding:30px;font-size:2.2em")),
                            column(width=2,align="center",style="background:#DEE9F9",img(src="https://cem.epn.edu.ec/imagenes/logos_institucionales/big_png/BUHO_EPN_big.png", width="150px", height="125px"))
 ),
-navbarPage("MÓDULOS", theme=shinytheme("cosmo"), # Menú principal
-           tabPanel("NO ME TOCA ", 
-                    h4("Una máquina produce tiras de goma de longitud aleatoria con distribución exp(lambda) (en metros). Después de fabricadas, 
-                               las tiras de goma pasan a otra máquina que las estira hasta que rompen en dos  (para comprobar su elasticidad). Suponiendo
-                               que el lugar por donde rompe cada tira es aleatorio y con distribución uniforme a lo largo de toda su longitud,
-                               describir detalladamente un algoritmo que simule las longitudes de los dos trozos en los que se rompe cada goma."),
-                    numericInput("lambda", "Parámetro de la exponencial:", value = 2, min=0.5, max = 4),
-                    numericInput("nsim", "Número de gomas a simular:", value = 100, min=10, max = 100000),
-                    
-                    h3("Gráfico de cajas y bigotes"),
-                    fluidRow(column(2, ""),
-                             column(8, box(highchartOutput("sim01"), width = 12)),
-                             column(2, "")
-                    ),
-                    p()
-                    
-           ),
+navbarPage("MÓDULOS", theme=shinytheme("cosmo"), 
+           navbarMenu("Números pseudoaleatorios",
+                      tabPanel("Cuadrados Medios",
+                               h2("Método de los cuadrados medios"),
+                               p(),
+                               numericInput("xocm", "Ingrese una semilla:", value = 123, min = 100, max = 999),
+                               numericInput("ncm", "Seleccione el número de dígitos:", value = 4, min = 1, max = 6),
+                               numericInput("numcm", "Cantidad de números a generar:", value = 10, min = 1, max = 1000),
+                               column(12, "Resultados",
+                                      div(tableOutput("cm")))
+                      ),
+                      tabPanel("Lehmer",
+                               h2("Método de Lehmer"),
+                               p(),
+                               numericInput("xolhm","Ingrese una semilla:", value = 12345, min = 100, max = 999999),
+                               numericInput("clhm","Ingrese c (menor cantidad de cifras que la semilla):", value = 76, min = 100, max = 99999),
+                               numericInput("numlhm", "Cantidad de números a generar:", value = 10, min = 1, max = 1000),
+                               column(12,"Resultados",
+                                      div(tableOutput("lhm")))
+                      ),
+                      tabPanel("Congruencial simple",
+                               h2("Método Congruencial simple"), 
+                               p(),
+                               numericInput("xocs","Ingrese una semilla:", value = 123456, min = 100, max = 999999),
+                               numericInput("mcs","Ingrese el valor de m:", value = 10, min = 1, max = 100),
+                               numericInput("acs","Ingrese el valor de a:", value = 1, min = 1, max = 99),
+                               numericInput("ccs","Ingrese el valor de c:", value = 1, min = 1, max = 99),
+                               numericInput("numcs", "Cantidad de números a generar:", value = 10, min = 1, max = 1000),
+                               column(12,"Resultados",
+                                      div(tableOutput("cs")))
+                      ),
+                      tabPanel("Congruencial Multiplicativo",
+                               h2("Método Congruencial lineal (minimal standar)"), 
+                               p(),
+                               numericInput("xocmult","Ingrese una semilla:", value = 123456, min = 100, max = 999999),
+                               numericInput("mcmult","Ingrese el valor de m:", value = 10, min = 1, max = 100),
+                               numericInput("acmult","Ingrese el valor de a:", value = 2, min = 1, max = 99),
+                               numericInput("numcmult", "Cantidad de números a generar:", value = 10, min = 1, max = 1000),
+                               column(12,"Resultados",
+                                      div(tableOutput("cmult")))
+                      )),
+           
            navbarMenu("Simulación de Variables Aleatorias Continuas", 
                       tabPanel("Transformada Inversa (TRIANGULAR)",style = "background: #D7F4FC",
                                h2("Método de simulación de la transformada inversa"),
