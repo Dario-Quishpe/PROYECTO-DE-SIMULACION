@@ -5,16 +5,17 @@ suppressPackageStartupMessages(library(highcharter))
 suppressPackageStartupMessages(library(shinyWidgets))
 suppressPackageStartupMessages(library(DT))
 suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(shinythemes))
 options(dplyr.summarise.inform = FALSE)
 
 
 # UI
-shinyUI(fluidPage(fluidRow(column(width=2,align="center",style="background:#DEE9F9",img(src="https://us.123rf.com/450wm/daryatigrph/daryatigrph1909/daryatigrph190900143/130409028-ilustraci%C3%B3n-de-vector-de-plantilla-de-logotipo-de-b%C3%BAho.jpg", width="150px", height="125px")), # Logo página principal
-                           column(width=8,style="background:#FC8585", h1("TRABAJO GRUPAL DE SIMULACION-2023A ", 
+shinyUI(fluidPage(fluidRow(column(width=2,align="center",style="background:#DEE9F9",img(src="https://cem.epn.edu.ec/imagenes/logos_institucionales/big_png/BUHO_EPN_big.png", width="150px", height="125px")), # Logo página principal
+                           column(width=8,style="background:#FC8585", h1("TRABAJO GRUPAL DE SIMULACIÓN-2023A ", 
                                          style = "background:#F9EDE9 ;text-align:center;align-items:center;color:'black';padding:30px;font-size:2.2em")),
-                           column(width=2,align="center",style="background:#DEE9F9",img(src="https://us.123rf.com/450wm/daryatigrph/daryatigrph1909/daryatigrph190900143/130409028-ilustraci%C3%B3n-de-vector-de-plantilla-de-logotipo-de-b%C3%BAho.jpg", width="150px", height="125px"))
+                           column(width=2,align="center",style="background:#DEE9F9",img(src="https://cem.epn.edu.ec/imagenes/logos_institucionales/big_png/BUHO_EPN_big.png", width="150px", height="125px"))
 ),
-navbarPage("MODULOS", # Menú principal
+navbarPage("MÓDULOS", theme=shinytheme("cosmo"), # Menú principal
            tabPanel("NO ME TOCA ", 
                     h4("Una máquina produce tiras de goma de longitud aleatoria con distribución exp(lambda) (en metros). Después de fabricadas, 
                                las tiras de goma pasan a otra máquina que las estira hasta que rompen en dos  (para comprobar su elasticidad). Suponiendo
