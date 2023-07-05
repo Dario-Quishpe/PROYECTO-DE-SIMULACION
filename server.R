@@ -186,7 +186,7 @@ sim_cauchy_inversa <- function(nsim_1, mu_1, gamma_1){
   
   for (i in 1:nsim_1) {
     U<- runif(1)
-    cauchy_inversa[i] <- tan(pi*U)
+    cauchy_inversa[i] <- mu_1+gamma_1*tan(pi*U)
   }
   
   
@@ -206,7 +206,7 @@ sim_bino <- function(nsim, prob){
     x <- qbinom(u, size = 1, prob = prob) # utilizamos el método de transformación cuantil
     binom[i] <- x
   }
-  return(binom)
+  return(data.table(N = 1:nsim, X=binom))
 }
 
 
@@ -462,14 +462,18 @@ shinyServer(function(input, output, session){
   output$histograma <- renderHighchart({
     binomial <- sim_bino(input$nsim, input$prob)
     
-    hchart(binomial,name="",color = "skyblue") %>% 
-      hc_title(text = 'HISTOGRAMA',align="center",width="25") |> 
-      hc_plotOptions(series = list(animation = FALSE)) |> 
-      hc_add_theme(hc_theme_economist())
+    # Crear el histograma
+    hc <- highchart() %>%
+      hc_chart(type = "column") %>%
+      hc_add_series(data = binomial$X, name = "Valor de Cauchy Inversa", color = "skyblue") %>%
+      hc_title(text = "Histograma de la Distribución de Cauchy (Transformada Inversa)") %>%
+      hc_xAxis(categories = binomial$N, title = list(text = "Número de Simulación")) %>%
+      hc_yAxis(title = list(text = "Valor de Cauchy Inversa")) %>%
+      hc_colors(c("skyblue")) %>%
+      hc_plotOptions(column = list(colorByPoint = TRUE))
     
-    
+    hc
   })
-  
   
   
   
