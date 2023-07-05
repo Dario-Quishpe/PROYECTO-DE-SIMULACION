@@ -263,6 +263,64 @@ TGB<- function(n,p,nsim) {
   return(res)
 }
 
+#inversa Weibull
+WEIBULL<-function(n,lambda, alpha){
+  set.seed(1)
+  U<-runif(n)
+  X <- (-log(U))^(1/alpha)/lambda
+  res <- data.table(N = 1:n, X =X)
+  return(res)
+}
+
+#tabla guía
+rfmp.tabla <- function(x,p, m, nsim) {
+
+  #x<-0:n
+  #p<-dbinom(x,10,pr)
+  Fx <- cumsum(p)
+  g <- rep(1, m)
+  
+
+  i <- 1
+  for(j in 2:m) {
+    while (Fx[i] < (j-1)/m) {
+      i <- i + 1
+    }
+    g[j] <- i
+  }
+  
+
+  X <- numeric(nsim)
+  U <- runif(nsim)
+  
+  for(j in 1:nsim) {
+    i <- g[floor(U[j]*m)+1]
+    while (Fx[i] < U[j]) {
+      i <- i + 1
+    }
+    X[j] <- x[i]
+  }
+  res<-data.table(N=1:nsim,X=X)
+  return(res)
+}
+
+den_Weibull<-function(x,lambda,alpha){
+  return(alpha*lambda^alpha*x^(alpha-1)*exp((-lambda*x)^alpha))
+}
+
+##Aceptación-Rechazo Weibull
+AR_Weibull<-function(n,lambda,alpha,a,b){
+  x<-seq(a,b,l=n)
+  U<-runif(n,0,1)
+  V<-runif(n,0,1)
+  M=max(den_Weibull(x,lambda,alpha))
+  c=M*(b-a)
+  T=a+(b-a)*V
+  X<-T[M*U<=den_Weibull(T,lambda,alpha)]
+  res<-data.table(N=1:n,X=X)
+  return(res)
+}
+
 #________________________________________________________
 
 
@@ -435,7 +493,42 @@ shinyServer(function(input, output, session){
       hc_title(text = 'Histograma Simulación Beta',align="center",width="25") |>
       hc_add_theme(hc_theme_bloom())
   })
-  
+
+   ### Tabla inversa Weibull
+  output$inv_Weibull <- function(){
+    res_1 <- data.frame(WEIBULL(input$n_1,input$lambda_1,input$alpha_1))
+    kbl(res_1) %>% 
+      kable_styling(position = "center") %>% 
+      row_spec(0, bold = TRUE, background = "blue") %>% 
+      scroll_box(width = "300px", height = "400px")
+  }
+  ### Tabla Aceptación-rechazo Weibull
+  output$AcRc_Weibull <- function(){
+    res_1 <- data.frame(AR_Weibull(input$n_2,input$lambda_2,input$alpha_2,
+                                   input$a_2,input$b_2))
+    kbl(res_1) %>% 
+      kable_styling(position = "center") %>% 
+      row_spec(0, bold = TRUE, background = "blue") %>% 
+      scroll_box(width = "300px", height = "400px")
+  }
+
+  ### Gráfico de Trans. inversa Weibull
+  output$Weibull_histograma1 <- renderHighchart({
+    his1<-WEIBULL(input$n_1,input$lambda_1,input$alpha_1)
+    hchart(his1$X,name="histograma de los Nros Aleatorios obtenidos por el metodo de Transformación inversa a una Weibull",color = "#8ACBA9") %>% 
+    hc_title(text = 'HISTOGRAMA',align="center",width="25") |> 
+    hc_plotOptions(series = list(animation = FALSE)) |> 
+    hc_add_theme(hc_theme_handdrawn())
+  })
+  ### Gráfico A-R Weibull
+  output$Weibull_histograma2 <- renderHighchart({
+    his2<-AR_Weibull(input$n_2,input$lambda_2,input$alpha_2,
+                     input$a_2,input$b_2)
+    hchart(his2$X,name="histograma de los Nros Aleatorios obtenidos por el metodo Aceptación-Rechazo a una Weibull",color = "#8ACBA9") %>% 
+      hc_title(text = 'HISTOGRAMA',align="center",width="25") |> 
+      hc_plotOptions(series = list(animation = FALSE)) |> 
+      hc_add_theme(hc_theme_handdrawn())
+  })
   ### INGRESO DE DATOS A LA TABLA EDITABLE Y GENERACION DE SU CORRESPONDIENTE FUNCION DE DISTRIBUCION
   v <- reactiveValues(data = { 
     data.frame(x_i = numeric(0),p_i = numeric(0)) %>% 
@@ -586,6 +679,55 @@ shinyServer(function(input, output, session){
     
     hc
   })
+
+    ### INGRESO DE DATOS A LA TABLA EDITABLE PARA MÉTODO DE LA TABLA GUÍA
+  
+  v1 <- reactiveValues(data = { 
+    data.frame(x_2i = numeric(0),p_2i = numeric(0)) %>% 
+      add_row(x_2i = seq(1,10), p_2i= round(dbinom(0:10,size=9,p=0.4)[0:10],digits = 5))
+  })
+  
+  output$tabla_usuario_1 <- renderDT({
+    DT::datatable(v1$data, editable = TRUE)
+  })
+  
+  observeEvent(input$tabla_usuario_cell_edit_1, {
+    info = input$tabla_usuario_cell_edit_1
+    i = as.numeric(info$row)
+    j = as.numeric(info$col)
+    k = as.numeric(info$value)
+    v1$data[i,j] <- k
+  })
+  ### Funcion de distribucion de los datos inidiales creados
+  output$F_distribucion_1 <- renderPlot({
+    req(input$go)
+    v1$data|>mutate(res=cumsum(p_2i)) |>
+      filter(p_2i!=0) |> 
+      ggplot(aes(x_2i,res)) +
+      geom_point(size = 3, shape = 5, colour = "blue")+
+      geom_line(size = 1.2, linetype = "dashed",color="blue")+labs(title='FUNCION DE DISTRIBUCION DE LOS DATOS INGRESADOS', 
+                                                                   
+                                                                   caption="Funcion de distribucion-Si para el nro final de registros ingresados la funcion de distribucion no es 1 vuelva a ingresar los datos")
+  })
+  output$usuario_resultado_1 <- renderHighchart({
+    datos<-v1$data|>
+      filter(p_2i!=0)
+    tb01 <- rfmp.tabla(datos$x_2i,datos$p_2i,input$m_3,input$nsim_3)
+    hchart(tb01$X,breaks=10,name="histograma de los Nros Aleatorios obtenidos por el metodo de la tabla guia aplicado a una variable discreta",color = "#8ACBA9") %>%
+      hc_title(text = 'HISTOGRAMA',align="center",width="10") |>
+      hc_plotOptions(series = list(animation =TRUE)) |>
+      hc_add_theme(hc_theme_handdrawn())
+  })
+  output$sim_usuario_tabla_1 <- function(){
+    datos<-v1$data|>
+      filter(p_2i!=0)
+    res <- data.frame(rfmp.tabla(datos$x_2i,datos$p_2i,input$m_3,input$nsim_3))
+
+    kbl(res) %>%
+      kable_styling(position = "center") %>%
+      row_spec(0, bold = TRUE, background = "#5ED7EF") %>%
+      scroll_box(width = "300px", height = "400px")
+  }
   
   
   
