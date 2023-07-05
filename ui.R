@@ -194,7 +194,46 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
            
                                
                                
-                      )),
+                      ),
+
+                      tabPanel("Transformación inversa Weibull",style = "background: #D7F4FC",
+                               h2("Método de transformación inversa"),
+                               h3("Distribución Weibull"),
+                               numericInput("n_1", "Ingrese el número de simulaciones", 
+                                            value = 150, min = 0, max = 5000),
+                               numericInput("lambda_1", "Ingrese el valor de lambda", 
+                                            value = 2, min = 1, max = 10),
+                               numericInput("alpha_1", "Ingrese el valor de alpha", 
+                                            value = 4, min = 1, max = 10),
+                               fluidRow(column(width=4, "Resultados",
+                                               div(tableOutput("inv_Weibull"))),
+                                        
+                                        column(8, box(highchartOutput("Weibull_histograma1",height = 400), width = 12)),
+                                        
+                               ),
+                      ),
+                      
+                      tabPanel("Aceptación-Rechazo Weibull",style = "background: #D7F4FC",
+                               h2("Método de Aceptación-Rechazo"),
+                               h3("Distribución Weibull"),
+                               numericInput("n_2", "Ingrese el número de simulaciones", 
+                                            value = 150, min = 0, max = 5000),
+                               numericInput("lambda_2", "Ingrese el valor de lambda", 
+                                            value = 2, min = 1, max = 10),
+                               numericInput("alpha_2", "Ingrese el valor de alpha", 
+                                            value = 4, min = 1, max = 10),
+                               numericInput("a_2", "Ingrese el valor de a (límite inferior del intervalo)", 
+                                            value = 2, min = 2, max = 1000),
+                               numericInput("b_2", "Ingrese el valor de b (límite superior del intervalo)", 
+                                            value = 10, min = 4, max = 10000),
+                               fluidRow(column(width=4, "Resultados",
+                                               div(tableOutput("AcRc_Weibull"))),
+                                        
+                                        column(8, box(highchartOutput("Weibull_histograma2",height = 400), width = 12)),
+                                        
+                               ),
+                      ),
+                     ),
            
            navbarMenu("Simulación de Variables Aleatorias discretas", 
                       tabPanel("Método de Transformación Cuantil", style = "background: #D7F4FC",
@@ -273,6 +312,33 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                  h3("Función de masa definida por el usuario"),
                                  
                         ),
+
+                        tabPanel("Tabla Guía: Función de Probabilidad Discreta digitada por el usuario",style = "background: #D7F4FC",
+                               sidebarLayout(
+                                 sidebarPanel(
+                                   numericInput("m_3", "Escriba el número de intervalos: ",
+                                                value = 100, min = 0, max = 10000),
+                                   numericInput("nsim_3", "Ingrese el numero de variables a simular: ",
+                                                value = 1000, min = 0, max = 10000),
+
+                                   DTOutput("tabla_usuario_1"),
+                                   actionButton("go",label = "Imprimir_F2")
+                                 ),
+
+                                 # Show plot
+                                 mainPanel(h4("INDICACIONES GENERALES: La 1era tabla a la izquierda representa una pequeña funcion de probabilidades para una variable aleatoria discreta X
+                                     la cual puede tomar valores del 0 al 10 con la probabilidad correspondiente.Dichas probabilidades pueden ser modificadas por el usuario mediante
+                                     un doble click en la celda correspondiente. Cabe recalcar que se debe cumplir que la probabilidades colocadas para cada valor x que toma X deben
+                                     sumar 1, y tener solo valores positivos"),
+                                           plotOutput("F_distribucion_1")
+                                 ),
+                               ),
+                               fluidRow(column(width=4, "Resultados",
+                                               div(tableOutput("sim_usuario_tabla_1"))),
+                                        column(8, box(highchartOutput("usuario_resultado_1",height = 400), width = 10)),
+
+                                ),
+                     ),
                         tabPanel("Distribución Poisson",style = "background: #D7F4FC",
                                  h2("Simulación variable discreta con dominio infinito"),
                                  h3("Distribución de Poisson"),
