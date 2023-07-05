@@ -47,7 +47,7 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                       div(tableOutput("cs")))
                       ),
                       tabPanel("Congruencial Multiplicativo",
-                               h2("Método Congruencial lineal (minimal standar)"), 
+                               h2("Método Congruencial Multiplicativo"), 
                                p(),
                                numericInput("xocmult","Ingrese una semilla:", value = 123456, min = 100, max = 999999),
                                numericInput("mcmult","Ingrese el valor de m:", value = 10, min = 1, max = 100),
@@ -198,7 +198,8 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
            
            navbarMenu("Simulación de Variables Aleatorias discretas", 
                       tabPanel("Método de Transformación Cuantil", style = "background: #D7F4FC",
-                               h2("Simulación de una Distribución Binomial"),
+                               h2("Método de Transformación Cuantil"),
+                               h3("Distribución Binomial"),
                                numericInput("nsim", "Ingrese el número de simulaciones: ", value = 3, min= 2, max = 1000 ),
                                numericInput("prob", "Ingrese el valor de la probabilida a simular: ", value = 0.5, min= 0.01, max = 1 ),
                                
