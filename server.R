@@ -5,6 +5,7 @@ suppressPackageStartupMessages(library(highcharter))
 suppressPackageStartupMessages(library(shinydashboard))
 suppressPackageStartupMessages(library(tidyr))
 suppressPackageStartupMessages(library(sparkline))
+suppressPackageStartupMessages(library(kableExtra))
 
 #getDependency('sparkline')
 options(dplyr.summarise.inform = FALSE)
