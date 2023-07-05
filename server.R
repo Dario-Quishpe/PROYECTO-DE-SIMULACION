@@ -616,6 +616,20 @@ shinyServer(function(input, output, session){
   
  #histograma de la distribucion de cauchy
   
+  #trabla
+  output$cauchy_tabla <- function(){
+    res <- data.frame(
+                      X=sim_cauchy(input$nsim, input$mu, input$gamma))
+    
+    kbl(res) %>% 
+      kable_styling(position = "center") %>% 
+      row_spec(0, bold = TRUE, background = "#EA08F3") %>% 
+      scroll_box(width = "300px", height = "400px")
+  } 
+  
+  
+  
+  
   # Generar el histograma con renderHighchart
   output$histograma_cauchy <- renderHighchart({
     cauchy <- sim_cauchy(input$nsim, input$mu, input$gamma)
@@ -626,7 +640,7 @@ shinyServer(function(input, output, session){
       hc_title(text = "Histograma de la Distribución de Cauchy (Transformada Inversa)") %>%
       hc_xAxis(categories = cauchy$N, title = list(text = "Número de Simulación")) %>%
       hc_yAxis(title = list(text = "Valor de Cauchy Inversa")) %>%
-      hc_colors(c("skyblue")) %>%
+      hc_colors(c("#EA08F3")) %>%
       hc_plotOptions(column = list(colorByPoint = TRUE))
     
     hc
@@ -637,6 +651,18 @@ shinyServer(function(input, output, session){
   
   
   #histograma de cauchy inversa
+  
+  #trabla
+  output$cauchy_invers_tabla <- function(){
+    res <- data.frame(
+                      X=sim_cauchy_inversa(input$nsim_1, input$mu_1, input$gamma_1))
+    
+    kbl(res) %>% 
+      kable_styling(position = "center") %>% 
+      row_spec(0, bold = TRUE, background = "#EA08F3") %>% 
+      scroll_box(width = "300px", height = "400px")
+  } 
+  
   
   # Generar el histograma con renderHighchart
   output$histograma_cauchy_inversa <- renderHighchart({
@@ -649,7 +675,7 @@ shinyServer(function(input, output, session){
       hc_title(text = "Histograma de la Distribución de Cauchy (Transformada Inversa)") %>%
       hc_xAxis(categories = cauchy_inversa$N, title = list(text = "Número de Simulación")) %>%
       hc_yAxis(title = list(text = "Valor de Cauchy Inversa")) %>%
-      hc_colors(c("skyblue")) %>%
+      hc_colors(c("#EA08F3")) %>%
       hc_plotOptions(column = list(colorByPoint = TRUE))
     
     hc
@@ -718,6 +744,7 @@ shinyServer(function(input, output, session){
       hc_plotOptions(series = list(animation =TRUE)) |>
       hc_add_theme(hc_theme_handdrawn())
   })
+  
   output$sim_usuario_tabla_1 <- function(){
     datos<-v1$data|>
       filter(p_2i!=0)

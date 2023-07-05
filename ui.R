@@ -86,8 +86,8 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                             value = 3, min = 0, max = 100),
                                numericInput("gamma_1", "Ingrese el valor de gamma para simular cauchy:", 
                                             value = 1, min = 1, max = 10),
-                               fluidRow(column(width=4, "Resultados"
-                               ),
+                               fluidRow(column(width=4, "Resultados", div(tableOutput("cauchy_invers_tabla")
+                               )),
                                
                                column(8, box(highchartOutput("histograma_cauchy_inversa",height = 400), width = 12)),
                                
@@ -141,8 +141,8 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                             value = 3, min = 0, max = 100),
                                numericInput("gamma", "Ingrese el valor de gamma para simular cauchy:", 
                                             value = 1, min = 1, max = 10),
-                               fluidRow(column(width=4, "Resultados"
-                                               ),
+                               fluidRow(column(width=4, "Resultados", div(tableOutput("cauchy_tabla")
+                               )),
                                         
                                         column(8, box(highchartOutput("histograma_cauchy",height = 400), width = 12)),
                                         
