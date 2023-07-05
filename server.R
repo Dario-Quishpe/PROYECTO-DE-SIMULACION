@@ -154,11 +154,11 @@ sim_usuario<-function(valores,probs,num){
 
 sim_bino <- function(nsim, prob){
   
-  binom <- 0 
-  for (i in nsim) {
+  binom <- numeric(nsim)
+  for (i in 1:nsim) {
     u <- runif(1) #generamos un numero aleatorio con distribucion uniforme 0,1
     x <- ifelse(u < prob, 1, 0)
-    binom <- binom+x
+    binom[i] <- x
   }
   return(binom)
 }
@@ -371,13 +371,16 @@ shinyServer(function(input, output, session){
   
   # Generar el histograma con renderHighchart
   output$histograma <- renderHighchart({
-    tb <- sim_bino(input$nsim, input$prob)
-    
+    binomial <- sim_bino(input$nsim, input$prob)
+    # Crear histograma
     hc <- highchart() %>%
-      hchart(tb,name="",color = "skyblue") %>% 
-      hc_title(text = 'HISTOGRAMA',align="center",width="25") |> 
-      hc_plotOptions(series = list(animation = FALSE)) |> 
-      hc_add_theme(hc_theme_economist())
+      hc_chart(type = "column") %>%
+      hc_add_series(name = "Frecuencia", data = table(binomial)) %>%
+      hc_title(text = "Simulación de Distribución Binomial") %>%
+      hc_xAxis(title = list(text = "Éxito/Fracaso")) %>%
+      hc_yAxis(title = list(text = "Frecuencia")) %>%
+      hc_colors(c("skyblue")) %>%
+      hc_plotOptions(column = list(colorByPoint = TRUE))
     
     
   })
