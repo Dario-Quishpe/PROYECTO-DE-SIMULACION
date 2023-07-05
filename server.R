@@ -187,7 +187,7 @@ shinyServer(function(input, output, session){
       scroll_box(width = "300px", height = "400px")
   }
   
-  ###Simulación Distribucion exponencial
+  ###Simulación Distribucion exponencial. Transformada inversa
   simexponencial <- function(lambda, num){
     U <- runif(num)
     X <- -log(U)/lambda
@@ -212,6 +212,8 @@ shinyServer(function(input, output, session){
       hc_plotOptions(series = list(animation = FALSE)) |> 
       hc_add_theme(hc_theme_economist())
   })
+  
+  
   #### Tabla Simulacion Distribucion Triangular (INVERSION)
   
   output$triangular_tabla <- function(){
@@ -300,7 +302,42 @@ shinyServer(function(input, output, session){
       scroll_box(width = "300px", height = "400px")
   }
   
+  ##Distribucion de Poisson
+  simPoisson<- function(lambda, nsim = 1000) {
+    X <- numeric(nsim)
+    U <- runif(nsim)
+    for(j in 1:nsim) {
+      i <- 0
+      p <- exp(-lambda)
+      Fx <- p
+      while (Fx < U[j]){
+        i <- i + 1
+        p <-lambda/i*p
+        Fx<-Fx+p
+      } 
+      X[j] <- i
+    }
+    return(X)
+  }
   
+  output$poisson <- function(){
+    res <- data.frame(n=seq(1:input$numpois),
+                      X=simPoisson(input$lambdap, input$numpois))
+    
+    kbl(res) %>% 
+      kable_styling(position = "center") %>% 
+      row_spec(0, bold = TRUE, background = "skyblue") %>% 
+      scroll_box(width = "300px", height = "400px")
+  } 
+  
+  output$poisson_hc <- renderHighchart({
+    
+    X<-simPoisson(input$lambdap, input$numpois)
+    hchart(X,name="",color = "skyblue") %>% 
+      hc_title(text = 'HISTOGRAMA',align="center",width="25") |> 
+      hc_plotOptions(series = list(animation = FALSE)) |> 
+      hc_add_theme(hc_theme_economist())
+  })
   
  
   

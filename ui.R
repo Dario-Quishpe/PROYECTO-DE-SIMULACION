@@ -64,7 +64,6 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                p(),
                                fluidRow(
                                  column(width=3,
-                                        h3("Distribución Exponencial"),
                                         numericInput("lambdaexp", "Ingrese el valor de lambda:", 
                                                      value = 4, min = 0.01, max = 10, step = 0.01),
                                         numericInput("numexp", "Ingrese el número de variables a simular:", 
@@ -114,13 +113,7 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                
             
                       ),
-                      tabPanel("Aceptación y rechazo. Distribución Exponencial",style = "background: #D7F4FC",
-                               h2("Método de simulación Aceptación y rechazo "),
-                               h3("Distribución Exponencial"),
-                          
-                               
-                               
-                      ),
+                     
                       tabPanel("Aceptación y rechazo. Distribución de Cauchy",style = "background: #D7F4FC",
                                h2("Método de simulación Aceptación y rechazo "),
                                h3("Distribución de Cauchy"),
@@ -203,7 +196,19 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                         tabPanel("Distribución Poisson",style = "background: #D7F4FC",
                                  h2("Simulación variable discreta con dominio infinito"),
                                  h3("Distribución de Poisson"),
-                               
+                                 p(),
+                                 fluidRow(
+                                   column(width=3,
+                                          numericInput("lambdap", "Ingrese el valor de lambda:", 
+                                                       value = 4, min = 0.01, max = 10, step = 0.01),
+                                          numericInput("numpois", "Ingrese el número de variables a simular:", 
+                                                       value = 200, min = 1, max = 1000),
+                                          column(12, "Resultados",
+                                                 div(tableOutput("poisson")))
+                                   ),
+                                   column(width=9,
+                                          box(highchartOutput("poisson_hc",height = 400), width = 12)))
+                                 
                         ),
                         ),
 )
