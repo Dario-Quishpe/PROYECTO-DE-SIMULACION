@@ -80,7 +80,18 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                h2("Método de simulación de la transformada inversa"),
                                h3("Distribución Cauchy"),
                         
+                               numericInput("nsim_1", "Ingrese el número de simulaciones a realizar:", 
+                                            value = 3, min = 2, max = 1000),
+                               numericInput("mu_1", "Ingrese el valor de mu para simular cauchy:", 
+                                            value = 3, min = 2, max = 100),
+                               numericInput("gamma_1", "Ingrese el valor de gamma para simular cauchy:", 
+                                            value = 1, min = 1, max = 10),
+                               fluidRow(column(width=4, "Resultados"
+                               ),
                                
+                               column(8, box(highchartOutput("histograma_cauchy_inversa",height = 400), width = 12)),
+                               
+                               ),
                                
                       ),
                       tabPanel("Transformada Inversa. Distribución Triangular",style = "background: #D7F4FC",

@@ -174,7 +174,23 @@ sim_cauchy <- function(nsim, mu, gamma){
     }
     
   }
-  return(cauchy)
+  return(data.table(N = 1:nsim, X=cauchy))
+}
+
+
+#distribucion de cauchy # METODO DE TRANSFORMADA INVERSA
+
+sim_cauchy_inversa <- function(nsim_1, mu_1, gamma_1){
+  cauchy_inversa<- numeric(nsim_1)
+  X <- numeric(nsim_1)
+  
+  for (i in 1:nsim_1) {
+    U<- runif(1)
+    cauchy_inversa[i] <- tan(pi*U)
+  }
+  
+  
+  return(data.table(N = 1:nsim_1, X=cauchy_inversa))
 }
 
 
@@ -398,20 +414,44 @@ shinyServer(function(input, output, session){
   # Generar el histograma con renderHighchart
   output$histograma_cauchy <- renderHighchart({
     cauchy <- sim_cauchy(input$nsim, input$mu, input$gamma)
-    x <- 0:input$nsim
+    # Crear el histograma
+    hc <- highchart() %>%
+      hc_chart(type = "column") %>%
+      hc_add_series(data = cauchy$X, name = "Valor de Cauchy Inversa", color = "skyblue") %>%
+      hc_title(text = "Histograma de la Distribución de Cauchy (Transformada Inversa)") %>%
+      hc_xAxis(categories = cauchy$N, title = list(text = "Número de Simulación")) %>%
+      hc_yAxis(title = list(text = "Valor de Cauchy Inversa")) %>%
+      hc_colors(c("skyblue")) %>%
+      hc_plotOptions(column = list(colorByPoint = TRUE))
     
-    
-    
-    hchart(cauchy,name="",color = "skyblue") %>% 
-      hc_title(text = 'HISTOGRAMA',align="center",width="25") |> 
-      hc_plotOptions(series = list(animation = FALSE)) |> 
-      hc_add_theme(hc_theme_economist())
-    
+    hc
     
     
     
     })
   
+  
+  #histograma de cauchy inversa
+  
+  # Generar el histograma con renderHighchart
+  output$histograma_cauchy_inversa <- renderHighchart({
+    cauchy_inversa <- sim_cauchy_inversa(input$nsim_1, input$mu_1, input$gamma_1)
+    
+    # Crear el histograma
+    hc <- highchart() %>%
+      hc_chart(type = "column") %>%
+      hc_add_series(data = cauchy_inversa$X, name = "Valor de Cauchy Inversa", color = "skyblue") %>%
+      hc_title(text = "Histograma de la Distribución de Cauchy (Transformada Inversa)") %>%
+      hc_xAxis(categories = cauchy_inversa$N, title = list(text = "Número de Simulación")) %>%
+      hc_yAxis(title = list(text = "Valor de Cauchy Inversa")) %>%
+      hc_colors(c("skyblue")) %>%
+      hc_plotOptions(column = list(colorByPoint = TRUE))
+    
+    hc
+    
+    
+    
+  })
   
   
   #------------------- VARIABLES DISCRETAS 
