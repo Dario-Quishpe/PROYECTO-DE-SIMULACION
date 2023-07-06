@@ -392,6 +392,40 @@ shinyServer(function(input, output, session){
       hc_plotOptions(series = list(animation = FALSE)) |> 
       hc_add_theme(hc_theme_economist())
   })
+
+  ##Distribucion Cauchy inversa
+    output$inv_Cauchy <- function(){
+    res_1 <- data.frame(sim_cauchy_inversa(input$nsim_0,input$mu_0,input$gamma_0))
+    kbl(res_1) %>% 
+      kable_styling(position = "center") %>% 
+      row_spec(0, bold = TRUE, background = "blue") %>% 
+      scroll_box(width = "300px", height = "400px")
+  }
+  
+  output$histograma_cauchy_inversa <- renderHighchart({
+    his2<-AR_Weibull(input$nsim_0,input$mu_0,input$gamma_0)
+    hchart(his2$X,name="histograma de la Distribución de Cauchy por la transformación inversa",color = "#8ACBA9") %>% 
+      hc_title(text = 'HISTOGRAMA',align="center",width="25") |> 
+      hc_plotOptions(series = list(animation = FALSE)) |> 
+      hc_add_theme(hc_theme_handdrawn())
+  })
+
+  ## Distribucion Cauchy Aceptacion-rechazo
+  output$AR_Cauchy <- function(){
+    res_1 <- data.frame(sim_cauchy(input$nsim_01,input$mu_01,input$gamma_01))
+    kbl(res_1) %>% 
+      kable_styling(position = "center") %>% 
+      row_spec(0, bold = TRUE, background = "green") %>% 
+      scroll_box(width = "300px", height = "400px")
+  }
+  
+  output$histograma_cauchy <- renderHighchart({
+    his2<-AR_Weibull(input$nsim_01,input$mu_01,input$gamma_01)
+    hchart(his2$X,name="histograma de la Distribución de Cauchy por Aceptación y Rechazo",color = "#8ACBA9") %>% 
+      hc_title(text = 'HISTOGRAMA',align="center",width="25") |> 
+      hc_plotOptions(series = list(animation = FALSE)) |> 
+      hc_add_theme(hc_theme_handdrawn())
+  })
   
   
   #### Tabla Simulacion Distribucion Triangular (INVERSION)
@@ -612,76 +646,6 @@ shinyServer(function(input, output, session){
       hc_title(text = 'HISTOGRAMA',align="center",width="25") |> 
       hc_plotOptions(series = list(animation = FALSE)) |> 
       hc_add_theme(hc_theme_economist())
-  })
-  
- #histograma de la distribucion de cauchy
-  
-  #trabla
-  output$cauchy_tabla <- function(){
-    res <- data.frame(
-                      X=sim_cauchy(input$nsim, input$mu, input$gamma))
-    
-    kbl(res) %>% 
-      kable_styling(position = "center") %>% 
-      row_spec(0, bold = TRUE, background = "#EA08F3") %>% 
-      scroll_box(width = "300px", height = "400px")
-  } 
-  
-  
-  
-  
-  # Generar el histograma con renderHighchart
-  output$histograma_cauchy <- renderHighchart({
-    cauchy <- sim_cauchy(input$nsim, input$mu, input$gamma)
-    # Crear el histograma
-    hc <- highchart() %>%
-      hc_chart(type = "column") %>%
-      hc_add_series(data = cauchy$X, name = "Valor de Cauchy Inversa", color = "skyblue") %>%
-      hc_title(text = "Histograma de la Distribución de Cauchy (Transformada Inversa)") %>%
-      hc_xAxis(categories = cauchy$N, title = list(text = "Número de Simulación")) %>%
-      hc_yAxis(title = list(text = "Valor de Cauchy Inversa")) %>%
-      hc_colors(c("#EA08F3")) %>%
-      hc_plotOptions(column = list(colorByPoint = TRUE))
-    
-    hc
-    
-    
-    
-    })
-  
-  
-  #histograma de cauchy inversa
-  
-  #trabla
-  output$cauchy_invers_tabla <- function(){
-    res <- data.frame(
-                      X=sim_cauchy_inversa(input$nsim_1, input$mu_1, input$gamma_1))
-    
-    kbl(res) %>% 
-      kable_styling(position = "center") %>% 
-      row_spec(0, bold = TRUE, background = "#EA08F3") %>% 
-      scroll_box(width = "300px", height = "400px")
-  } 
-  
-  
-  # Generar el histograma con renderHighchart
-  output$histograma_cauchy_inversa <- renderHighchart({
-    cauchy_inversa <- sim_cauchy_inversa(input$nsim_1, input$mu_1, input$gamma_1)
-    
-    # Crear el histograma
-    hc <- highchart() %>%
-      hc_chart(type = "column") %>%
-      hc_add_series(data = cauchy_inversa$X, name = "Valor de Cauchy Inversa", color = "skyblue") %>%
-      hc_title(text = "Histograma de la Distribución de Cauchy (Transformada Inversa)") %>%
-      hc_xAxis(categories = cauchy_inversa$N, title = list(text = "Número de Simulación")) %>%
-      hc_yAxis(title = list(text = "Valor de Cauchy Inversa")) %>%
-      hc_colors(c("#EA08F3")) %>%
-      hc_plotOptions(column = list(colorByPoint = TRUE))
-    
-    hc
-    
-    
-    
   })
   
   
