@@ -80,18 +80,19 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                
                                
                       ),
-                      tabPanel("Transformada Inversa. Distribución de Cauchy",style = "background: #D7F4FC",
+
+                               tabPanel("Transformada Inversa. Distribución de Cauchy",style = "background: #D7F4FC",
                                h2("Método de simulación de la transformada inversa"),
                                h3("Distribución Cauchy"),
                         
-                               numericInput("nsim_1", "Ingrese el número de simulaciones a realizar:", 
-                                            value = 3, min = 2, max = 1000),
-                               numericInput("mu_1", "Ingrese el valor de mu para simular cauchy:", 
+                               numericInput("nsim_0", "Ingrese el número de simulaciones a realizar:", 
+                                            value = 700, min = 2, max = 1000),
+                               numericInput("mu_0", "Ingrese el valor de mu para simular cauchy:", 
                                             value = 3, min = 0, max = 100),
-                               numericInput("gamma_1", "Ingrese el valor de gamma para simular cauchy:", 
+                               numericInput("gamma_0", "Ingrese el valor de gamma para simular cauchy:", 
                                             value = 1, min = 1, max = 10),
-                               fluidRow(column(width=4, "Resultados", div(tableOutput("cauchy_invers_tabla")
-                               )),
+                               fluidRow(column(width=4, "Resultados", div(tableOutput("inv_Cauchy"))
+                               ),
                                
                                column(8, box(highchartOutput("histograma_cauchy_inversa",height = 400), width = 12)),
                                
@@ -128,18 +129,18 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                         column(8, box(highchartOutput("Pareto_hc",height = 400), width = 12))),
                                
                       ),
-                     
-                      tabPanel("Aceptación y rechazo. Distribución de Cauchy",style = "background: #D7F4FC",
+
+                               tabPanel("Aceptación y rechazo. Distribución de Cauchy",style = "background: #D7F4FC",
                                h2("Método de simulación Aceptación y rechazo "),
                                h3("Distribución de Cauchy"),
-                               numericInput("nsim", "Ingrese el número de simulaciones a realizar:", 
-                                            value = 3, min = 2, max = 1000),
-                               numericInput("mu", "Ingrese el valor de mu para simular cauchy:", 
+                               numericInput("nsim_01", "Ingrese el número de simulaciones a realizar:", 
+                                            value = 600, min = 2, max = 1000),
+                               numericInput("mu_01", "Ingrese el valor de mu para simular cauchy:", 
                                             value = 3, min = 0, max = 100),
-                               numericInput("gamma", "Ingrese el valor de gamma para simular cauchy:", 
+                               numericInput("gamma_01", "Ingrese el valor de gamma para simular cauchy:", 
                                             value = 1, min = 1, max = 10),
-                               fluidRow(column(width=4, "Resultados", div(tableOutput("cauchy_tabla")
-                               )),
+                               fluidRow(column(width=4, "Resultados",div(tableOutput("AR_Cauchy"))
+                                               ),
                                         
                                         column(8, box(highchartOutput("histograma_cauchy",height = 400), width = 12)),
                                         
