@@ -156,7 +156,6 @@ sim_usuario<-function(valores,probs,num){
 }
 
 
-#distribucion de cauchy #  METODO DE ACEPTACION RECHAZO
 
 sim_cauchy <- function(nsim, mu, gamma){
   cauchy <- numeric(nsim)
@@ -229,7 +228,7 @@ ARBeta2<-function(nsim,alf,bet){
 
 
 sim_bino <- function(nsim, n, prob){ #n es el numero de observaciones
-
+  
   binom <- numeric(nsim)
   for (i in 1:nsim) {
     U <- runif(1)  # Generar valores uniformes U
@@ -274,13 +273,13 @@ WEIBULL<-function(n,lambda, alpha){
 
 #tabla guía
 rfmp.tabla <- function(x,p, m, nsim) {
-
+  
   #x<-0:n
   #p<-dbinom(x,10,pr)
   Fx <- cumsum(p)
   g <- rep(1, m)
   
-
+  
   i <- 1
   for(j in 2:m) {
     while (Fx[i] < (j-1)/m) {
@@ -289,7 +288,7 @@ rfmp.tabla <- function(x,p, m, nsim) {
     g[j] <- i
   }
   
-
+  
   X <- numeric(nsim)
   U <- runif(nsim)
   
@@ -392,40 +391,6 @@ shinyServer(function(input, output, session){
       hc_plotOptions(series = list(animation = FALSE)) |> 
       hc_add_theme(hc_theme_economist())
   })
-
-  ##Distribucion Cauchy inversa
-    output$inv_Cauchy <- function(){
-    res_1 <- data.frame(sim_cauchy_inversa(input$nsim_0,input$mu_0,input$gamma_0))
-    kbl(res_1) %>% 
-      kable_styling(position = "center") %>% 
-      row_spec(0, bold = TRUE, background = "blue") %>% 
-      scroll_box(width = "300px", height = "400px")
-  }
-  
-  output$histograma_cauchy_inversa <- renderHighchart({
-    his2<-AR_Weibull(input$nsim_0,input$mu_0,input$gamma_0)
-    hchart(his2$X,name="histograma de la Distribución de Cauchy por la transformación inversa",color = "#8ACBA9") %>% 
-      hc_title(text = 'HISTOGRAMA',align="center",width="25") |> 
-      hc_plotOptions(series = list(animation = FALSE)) |> 
-      hc_add_theme(hc_theme_handdrawn())
-  })
-
-  ## Distribucion Cauchy Aceptacion-rechazo
-  output$AR_Cauchy <- function(){
-    res_1 <- data.frame(sim_cauchy(input$nsim_01,input$mu_01,input$gamma_01))
-    kbl(res_1) %>% 
-      kable_styling(position = "center") %>% 
-      row_spec(0, bold = TRUE, background = "green") %>% 
-      scroll_box(width = "300px", height = "400px")
-  }
-  
-  output$histograma_cauchy <- renderHighchart({
-    his2<-AR_Weibull(input$nsim_01,input$mu_01,input$gamma_01)
-    hchart(his2$X,name="histograma de la Distribución de Cauchy por Aceptación y Rechazo",color = "#8ACBA9") %>% 
-      hc_title(text = 'HISTOGRAMA',align="center",width="25") |> 
-      hc_plotOptions(series = list(animation = FALSE)) |> 
-      hc_add_theme(hc_theme_handdrawn())
-  })
   
   
   #### Tabla Simulacion Distribucion Triangular (INVERSION)
@@ -527,8 +492,8 @@ shinyServer(function(input, output, session){
       hc_title(text = 'Histograma Simulación Beta',align="center",width="25") |>
       hc_add_theme(hc_theme_bloom())
   })
-
-   ### Tabla inversa Weibull
+  
+  ### Tabla inversa Weibull
   output$inv_Weibull <- function(){
     res_1 <- data.frame(WEIBULL(input$n_1,input$lambda_1,input$alpha_1))
     kbl(res_1) %>% 
@@ -545,14 +510,14 @@ shinyServer(function(input, output, session){
       row_spec(0, bold = TRUE, background = "blue") %>% 
       scroll_box(width = "300px", height = "400px")
   }
-
+  
   ### Gráfico de Trans. inversa Weibull
   output$Weibull_histograma1 <- renderHighchart({
     his1<-WEIBULL(input$n_1,input$lambda_1,input$alpha_1)
     hchart(his1$X,name="histograma de los Nros Aleatorios obtenidos por el metodo de Transformación inversa a una Weibull",color = "#8ACBA9") %>% 
-    hc_title(text = 'HISTOGRAMA',align="center",width="25") |> 
-    hc_plotOptions(series = list(animation = FALSE)) |> 
-    hc_add_theme(hc_theme_handdrawn())
+      hc_title(text = 'HISTOGRAMA',align="center",width="25") |> 
+      hc_plotOptions(series = list(animation = FALSE)) |> 
+      hc_add_theme(hc_theme_handdrawn())
   })
   ### Gráfico A-R Weibull
   output$Weibull_histograma2 <- renderHighchart({
@@ -588,8 +553,8 @@ shinyServer(function(input, output, session){
       ggplot(aes(x_i,res)) +
       geom_point(size = 3, shape = 5, colour = "blue")+
       geom_line(size = 1.2, linetype = "dashed",color="blue")+labs(title='FUNCION DE DISTRIBUCION ACUMULADA DE LOS DATOS INGRESADOS', 
-                                                   
-                                                      caption="Funcion de distribucion Acumulada-Si para el nro final de registros ingresados la funcion de distribucion no es 1 vuelva a ingresar los datos")
+                                                                   
+                                                                   caption="Funcion de distribucion Acumulada-Si para el nro final de registros ingresados la funcion de distribucion no es 1 vuelva a ingresar los datos")
   })
   output$usuario_resultado <- renderHighchart({
     datos<-v$data|>
@@ -648,7 +613,38 @@ shinyServer(function(input, output, session){
       hc_add_theme(hc_theme_economist())
   })
   
+  output$inv_Cauchy <- function(){
+    res_1 <- data.frame(sim_cauchy_inversa(input$nsim_0,input$mu_0,input$gamma_0))
+    kbl(res_1) %>% 
+      kable_styling(position = "center") %>% 
+      row_spec(0, bold = TRUE, background = "blue") %>% 
+      scroll_box(width = "300px", height = "400px")
+  }
   
+  output$histograma_cauchy_inversa <- renderHighchart({
+    his2<-sim_cauchy_inversa(input$nsim_0,input$mu_0,input$gamma_0)
+    hchart(his2$X,name="histograma de la Distribución de Cauchy por la transformación inversa",color = "#8ACBA9") %>% 
+      hc_title(text = 'HISTOGRAMA',align="center",width="25") |> 
+      hc_plotOptions(series = list(animation = FALSE)) |> 
+      hc_add_theme(hc_theme_handdrawn())
+  })
+  
+  output$histograma_cauchy <- renderHighchart({
+    his2<-sim_cauchy(input$nsim_01,input$mu_01,input$gamma_01)
+    hchart(his2$X,name="histograma de la Distribución de Cauchy por Aceptación y Rechazo",color = "#8ACBA9") %>% 
+      hc_title(text = 'HISTOGRAMA',align="center",width="25") |> 
+      hc_plotOptions(series = list(animation = FALSE)) |> 
+      hc_add_theme(hc_theme_handdrawn())
+  })
+  output$AR_Cauchy <- function(){
+    res_1 <- data.frame(sim_cauchy(input$nsim_01,input$mu_01,input$gamma_01))
+    kbl(res_1) %>% 
+      kable_styling(position = "center") %>% 
+      row_spec(0, bold = TRUE, background = "green") %>% 
+      scroll_box(width = "300px", height = "400px")
+  }
+  
+ 
   #------------------- VARIABLES DISCRETAS 
   
   #trabla
@@ -682,8 +678,8 @@ shinyServer(function(input, output, session){
     
     
   })
-
-    ### INGRESO DE DATOS A LA TABLA EDITABLE PARA MÉTODO DE LA TABLA GUÍA
+  
+  ### INGRESO DE DATOS A LA TABLA EDITABLE PARA MÉTODO DE LA TABLA GUÍA
   
   v1 <- reactiveValues(data = { 
     data.frame(x_2i = numeric(0),p_2i = numeric(0)) %>% 
@@ -726,7 +722,7 @@ shinyServer(function(input, output, session){
     datos<-v1$data|>
       filter(p_2i!=0)
     res <- data.frame(rfmp.tabla(datos$x_2i,datos$p_2i,input$m_3,input$nsim_3))
-
+    
     kbl(res) %>%
       kable_styling(position = "center") %>%
       row_spec(0, bold = TRUE, background = "#5ED7EF") %>%
@@ -736,6 +732,7 @@ shinyServer(function(input, output, session){
   
   
 })
+
 
 
 
