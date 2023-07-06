@@ -614,15 +614,15 @@ shinyServer(function(input, output, session){
   })
   
   output$inv_Cauchy <- function(){
-    res_1 <- data.frame(sim_cauchy_inversa(input$nsim_0,input$mu_0,input$gamma_0))
-    kbl(res_1) %>% 
-      kable_styling(position = "center") %>% 
-      row_spec(0, bold = TRUE, background = "blue") %>% 
+    res_1 <- data.frame(sim_cauchy_inversa(input$nsim_1,input$mu_1,input$gamma_1))
+    kbl(res_1) |>
+      kable_styling(position = "center") |>
+      row_spec(0, bold = TRUE, background = "blue") |>
       scroll_box(width = "300px", height = "400px")
   }
   
   output$histograma_cauchy_inversa <- renderHighchart({
-    his2<-sim_cauchy_inversa(input$nsim_0,input$mu_0,input$gamma_0)
+    his2<-sim_cauchy_inversa(input$nsim_1,input$mu_1,input$gamma_1)
     hchart(his2$X,name="histograma de la Distribución de Cauchy por la transformación inversa",color = "#8ACBA9") %>% 
       hc_title(text = 'HISTOGRAMA',align="center",width="25") |> 
       hc_plotOptions(series = list(animation = FALSE)) |> 
