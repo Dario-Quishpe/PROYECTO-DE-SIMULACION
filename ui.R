@@ -62,7 +62,7 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                       )),
            
            navbarMenu("Simulación de Variables Aleatorias Continuas", 
-                      tabPanel("Transformada Inversa. Distribución Exponencial",style = "background: #D7F4FC",
+                      tabPanel("Transformada Inversa: Distribución Exponencial",style = "background: #D7F4FC",
                                h2("Método de simulación de la transformada inversa"),
                                h3("Distribución Exponencial"),
                                p(),
@@ -80,7 +80,7 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                
                                
                       ),
-                      tabPanel("Transformada Inversa. Distribución de Cauchy",style = "background: #D7F4FC",
+                      tabPanel("Transformada Inversa: Distribución de Cauchy",style = "background: #D7F4FC",
                                h2("Método de simulación de la transformada inversa"),
                                h3("Distribución Cauchy"),
                                
@@ -98,7 +98,7 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                ),
                                
                       ),
-                      tabPanel("Transformada Inversa. Distribución Triangular",style = "background: #D7F4FC",
+                      tabPanel("Transformada Inversa: Distribución Triangular",style = "background: #D7F4FC",
                                h2("Método de simulación de la transformada inversa"),
                                h3("Distribución Triangular"),
                                numericInput("a_val", "Ingrese el valor de a. Recuerde que el intervalo es (0,a]:", 
@@ -114,7 +114,7 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                
                                
                       ),
-                      tabPanel("Transformada Inversa (Pareto)",
+                      tabPanel("Transformada Inversa: Pareto",
                                h2("Método de simulación de la transformada inversa"),
                                h3("Distribución Pareto"),
                                numericInput("a", "Ingrese el valor de a, el cual debe de ser mayor a 0:", 
@@ -129,7 +129,24 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                
                       ),
                       
-                      tabPanel("Aceptación y rechazo. Distribución de Cauchy",style = "background: #D7F4FC",
+                      tabPanel("Transformada inversa: Weibull",style = "background: #D7F4FC",
+                               h2("Método de transformación inversa"),
+                               h3("Distribución Weibull"),
+                               numericInput("n_1", "Ingrese el número de simulaciones", 
+                                            value = 150, min = 0, max = 5000),
+                               numericInput("lambda_1", "Ingrese el valor de lambda", 
+                                            value = 2, min = 1, max = 10),
+                               numericInput("alpha_1", "Ingrese el valor de alpha", 
+                                            value = 4, min = 1, max = 10),
+                               fluidRow(column(width=4, "Resultados",
+                                               div(tableOutput("inv_Weibull"))),
+                                        
+                                        column(8, box(highchartOutput("Weibull_histograma1",height = 400), width = 12)),
+                                        
+                               ),
+                      ),
+                      
+                      tabPanel("Aceptación y rechazo: Distribución de Cauchy",style = "background: #D7F4FC",
                                h2("Método de simulación Aceptación y rechazo "),
                                h3("Distribución de Cauchy"),
                                numericInput("nsim_01", "Ingrese el número de simulaciones a realizar:", 
@@ -151,7 +168,7 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                
                                
                       ),
-                      tabPanel("Aceptación y rechazo. Distribución Triangular",style = "background: #D7F4FC",
+                      tabPanel("Aceptación y rechazo: Distribución Triangular",style = "background: #D7F4FC",
                                h2("Método de simulación Aceptación y rechazo "),
                                h3("Distribución Triangular"),
                                numericInput("a_val_AR", "Ingrese el valor de a. Recuerde que el intervalo es (0,a]:", 
@@ -167,7 +184,7 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                
                                
                       ),
-                      tabPanel("Aceptación y rechazo. Distribución Beta",style = "background: #D7F4FC",
+                      tabPanel("Aceptación y rechazo: Distribución Beta",style = "background: #D7F4FC",
                                h2("Método de simulación Aceptación y rechazo "),
                                h3("Distribución Beta"),
                                numericInput("alfa", "Ingrese el valor de alfa:", 
@@ -185,25 +202,9 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                
                                
                       ),
+                    
                       
-                      tabPanel("Transformación inversa Weibull",style = "background: #D7F4FC",
-                               h2("Método de transformación inversa"),
-                               h3("Distribución Weibull"),
-                               numericInput("n_1", "Ingrese el número de simulaciones", 
-                                            value = 150, min = 0, max = 5000),
-                               numericInput("lambda_1", "Ingrese el valor de lambda", 
-                                            value = 2, min = 1, max = 10),
-                               numericInput("alpha_1", "Ingrese el valor de alpha", 
-                                            value = 4, min = 1, max = 10),
-                               fluidRow(column(width=4, "Resultados",
-                                               div(tableOutput("inv_Weibull"))),
-                                        
-                                        column(8, box(highchartOutput("Weibull_histograma1",height = 400), width = 12)),
-                                        
-                               ),
-                      ),
-                      
-                      tabPanel("Aceptación-Rechazo Weibull",style = "background: #D7F4FC",
+                      tabPanel("Aceptación y Rechazo: Weibull",style = "background: #D7F4FC",
                                h2("Método de Aceptación-Rechazo"),
                                h3("Distribución Weibull"),
                                numericInput("n_2", "Ingrese el número de simulaciones", 
@@ -226,7 +227,7 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
            ),
            
            navbarMenu("Simulación de Variables Aleatorias discretas", 
-                      tabPanel("Método de Transformación Cuantil", style = "background: #CFFFD8",
+                      tabPanel("Transformación Cuantil: Distribución Binomial", style = "background: #CFFFD8",
                                h2("Método de Transformación Cuantil"),
                                h3("Distribución Binomial"),
                                numericInput("nsim", "Ingrese el número de simulaciones: ", value = 3, min= 2, max = 1000 ),
@@ -254,7 +255,7 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                       
                       
                       
-                      tabPanel("Tabla guía.Distribución Binomial",style = "background: #CFFFD8",
+                      tabPanel("Tabla guía: Distribución Binomial",style = "background: #CFFFD8",
                                h2("Método de simulación Método de tabla guía"),
                                h3("Distribución Binomial"),
                                numericInput("n1","Ingrese el valor de n:",
@@ -273,7 +274,7 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                
                                
                       ),
-                      tabPanel("Transformación Cuantil. Función de masa de probabilidad definida por el usuario",style = "background: #CFFFD8",
+                      tabPanel("Transformación Cuantil: Función de masa de probabilidad definida por el usuario",style = "background: #CFFFD8",
                                h2("Método de simulación Transformación Cuantil"),
                                h3("Función de masa definida por el usuario"),
                                sidebarLayout(
@@ -300,7 +301,7 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                ),
                       ),
                       
-                      tabPanel("Tabla Guía: Función de Probabilidad Discreta digitada por el usuario",style = "background: #CFFFD8",
+                      tabPanel("Tabla Guía: Función de masa de probabilidad definida por el usuario",style = "background: #CFFFD8",
                                sidebarLayout(
                                  sidebarPanel(
                                    numericInput("m_3", "Escriba el número de intervalos: ",
