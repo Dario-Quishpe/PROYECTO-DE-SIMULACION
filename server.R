@@ -389,7 +389,7 @@ shinyServer(function(input, output, session){
     hchart(X,name="",color = "skyblue") %>% 
       hc_title(text = 'HISTOGRAMA',align="center",width="25") |> 
       hc_plotOptions(series = list(animation = FALSE)) |> 
-      hc_add_theme(hc_theme_economist())
+      hc_add_theme(hc_theme_bloom())
   })
   
   
@@ -423,7 +423,7 @@ shinyServer(function(input, output, session){
     hchart(tb01$X,name="histograma de los Nros Aleatorios obtenidos por el metodo aplicado  a una Distribucion Triangular",color = "#8ACBA9") %>% 
       hc_title(text = 'HISTOGRAMA',align="center",width="25") |> 
       hc_plotOptions(series = list(animation = FALSE)) |> 
-      hc_add_theme(hc_theme_handdrawn())
+      hc_add_theme(hc_theme_bloom())
   })
   #### Tabla Simulacion Distribucion Triangular (AR)
   output$triangular_tabla_AR <- function(){
@@ -442,7 +442,7 @@ shinyServer(function(input, output, session){
     hchart(tb01$X,name="histograma de los Nros Aleatorios obtenidos por el metodo aplicado  a una Distribucion Triangular",color = "#8ACBA9") %>% 
       hc_title(text = 'HISTOGRAMA',align="center",width="25") |> 
       hc_plotOptions(series = list(animation = FALSE)) |> 
-      hc_add_theme(hc_theme_handdrawn())
+      hc_add_theme(hc_theme_bloom())
   })
   
   ##Tabla simulación Binomial, método tabla  guía
@@ -482,7 +482,7 @@ shinyServer(function(input, output, session){
   output$Pareto_hc<-renderHighchart({
     tbpareto<-sim_Pareto(input$numpare,input$a,input$b)
     hchart(tbpareto$X,name="Densidad",type="area",color="#B7858E")|> 
-      hc_add_theme(hc_theme_monokai())
+      hc_add_theme(hc_theme_bloom())
   })
   ##Gráfico Beta, aceptación-rechazo
   
@@ -517,7 +517,7 @@ shinyServer(function(input, output, session){
     hchart(his1$X,name="histograma de los Nros Aleatorios obtenidos por el metodo de Transformación inversa a una Weibull",color = "#8ACBA9") %>% 
       hc_title(text = 'HISTOGRAMA',align="center",width="25") |> 
       hc_plotOptions(series = list(animation = FALSE)) |> 
-      hc_add_theme(hc_theme_handdrawn())
+      hc_add_theme(hc_theme_bloom())
   })
   ### Gráfico A-R Weibull
   output$Weibull_histograma2 <- renderHighchart({
@@ -526,7 +526,7 @@ shinyServer(function(input, output, session){
     hchart(his2$X,name="histograma de los Nros Aleatorios obtenidos por el metodo Aceptación-Rechazo a una Weibull",color = "#8ACBA9") %>% 
       hc_title(text = 'HISTOGRAMA',align="center",width="25") |> 
       hc_plotOptions(series = list(animation = FALSE)) |> 
-      hc_add_theme(hc_theme_handdrawn())
+      hc_add_theme(hc_theme_bloom())
   })
   ### INGRESO DE DATOS A LA TABLA EDITABLE Y GENERACION DE SU CORRESPONDIENTE FUNCION DE DISTRIBUCION
   v <- reactiveValues(data = { 
@@ -626,7 +626,7 @@ shinyServer(function(input, output, session){
     hchart(his2$X,name="histograma de la Distribución de Cauchy por la transformación inversa",color = "#8ACBA9") %>% 
       hc_title(text = 'HISTOGRAMA',align="center",width="25") |> 
       hc_plotOptions(series = list(animation = FALSE)) |> 
-      hc_add_theme(hc_theme_handdrawn())
+      hc_add_theme(hc_theme_bloom())
   })
   
   output$histograma_cauchy <- renderHighchart({
