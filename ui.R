@@ -11,7 +11,7 @@ options(dplyr.summarise.inform = FALSE)
 # UI
 shinyUI(fluidPage(fluidRow(column(width=2,align="center",style="background:#DEE9F9",img(src="https://cem.epn.edu.ec/imagenes/logos_institucionales/big_png/BUHO_EPN_big.png", width="110px", height="125px")), # Logo página principal
                            column(width=8,style="background:black", h1("TRABAJO GRUPAL DE SIMULACIÓN-2023A ", 
-                                         style = "background:#F9EDE9 ;text-align:center;align-items:center;color:'black';padding:30px;font-size:2.2em")),
+                                                                       style = "background:#F9EDE9 ;text-align:center;align-items:center;color:'black';padding:30px;font-size:2.2em")),
                            column(width=2,align="center",style="background:#DEE9F9",img(src="https://cem.epn.edu.ec/imagenes/logos_institucionales/big_png/BUHO_EPN_big.png", width="110px", height="125px"))
 ),
 navbarPage("MÓDULOS", theme=shinytheme("cosmo"), 
@@ -76,15 +76,14 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                                div(tableOutput("exponencial")))
                                  ),
                                  column(width=9,
-                                         box(highchartOutput("exponencial_hc",height = 400), width = 12)))
+                                        box(highchartOutput("exponencial_hc",height = 400), width = 12)))
                                
                                
                       ),
-
-                               tabPanel("Transformada Inversa. Distribución de Cauchy",style = "background: #D7F4FC",
+                      tabPanel("Transformada Inversa. Distribución de Cauchy",style = "background: #D7F4FC",
                                h2("Método de simulación de la transformada inversa"),
                                h3("Distribución Cauchy"),
-                        
+                               
                                numericInput("nsim_0", "Ingrese el número de simulaciones a realizar:", 
                                             value = 700, min = 2, max = 1000),
                                numericInput("mu_0", "Ingrese el valor de mu para simular cauchy:", 
@@ -129,8 +128,8 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                         column(8, box(highchartOutput("Pareto_hc",height = 400), width = 12))),
                                
                       ),
-
-                               tabPanel("Aceptación y rechazo. Distribución de Cauchy",style = "background: #D7F4FC",
+                      
+                      tabPanel("Aceptación y rechazo. Distribución de Cauchy",style = "background: #D7F4FC",
                                h2("Método de simulación Aceptación y rechazo "),
                                h3("Distribución de Cauchy"),
                                numericInput("nsim_01", "Ingrese el número de simulaciones a realizar:", 
@@ -140,15 +139,15 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                numericInput("gamma_01", "Ingrese el valor de gamma para simular cauchy:", 
                                             value = 1, min = 1, max = 10),
                                fluidRow(column(width=4, "Resultados",div(tableOutput("AR_Cauchy"))
-                                               ),
-                                        
-                                        column(8, box(highchartOutput("histograma_cauchy",height = 400), width = 12)),
-                                        
+                               ),
+                               
+                               column(8, box(highchartOutput("histograma_cauchy",height = 400), width = 12)),
+                               
                                ),
                                
                                
-                      
-                    
+                               
+                               
                                
                                
                       ),
@@ -186,7 +185,7 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                
                                
                       ),
-
+                      
                       tabPanel("Transformación inversa Weibull",style = "background: #D7F4FC",
                                h2("Método de transformación inversa"),
                                h3("Distribución Weibull"),
@@ -224,7 +223,7 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                         
                                ),
                       ),
-                     ),
+           ),
            
            navbarMenu("Simulación de Variables Aleatorias discretas", 
                       tabPanel("Método de Transformación Cuantil", style = "background: #CFFFD8",
@@ -247,14 +246,14 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                ),
                       ),
                       
-          
-           
-                                 
-                              
-                        
-                       
-           
-           
+                      
+                      
+                      
+                      
+                      
+                      
+                      
+                      
                       tabPanel("Tabla guía.Distribución Binomial",style = "background: #CFFFD8",
                                h2("Método de simulación Método de tabla guía"),
                                h3("Distribución Binomial"),
@@ -274,45 +273,45 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                
                                
                       ),
-                        tabPanel("Transformación Cuantil. Función de masa de probabilidad definida por el usuario",style = "background: #CFFFD8",
-                                 h2("Método de simulación Transformación Cuantil"),
-                                 h3("Función de masa definida por el usuario"),
-                                 sidebarLayout(
-                                   sidebarPanel(
-                                     numericInput("num", "Ingrese el numero de variables a simular: ", 
-                                                  value = 10000, min = 0, max = 10000),
-                                     
-                                     DTOutput("tabla_usuario"),
-                                     actionButton("go",label = "Imprimir_FA")
-                                   ),
+                      tabPanel("Transformación Cuantil. Función de masa de probabilidad definida por el usuario",style = "background: #CFFFD8",
+                               h2("Método de simulación Transformación Cuantil"),
+                               h3("Función de masa definida por el usuario"),
+                               sidebarLayout(
+                                 sidebarPanel(
+                                   numericInput("num", "Ingrese el numero de variables a simular: ", 
+                                                value = 10000, min = 0, max = 10000),
                                    
-                                   # Show plot
-                                   mainPanel(h4("INDICACIONES GENERALES: La 1era tabla a la izquierda representa una pequeña funcion de probabilidades para una variable aleatoria discreta X
+                                   DTOutput("tabla_usuario"),
+                                   actionButton("go",label = "Imprimir_FA")
+                                 ),
+                                 
+                                 # Show plot
+                                 mainPanel(h4("INDICACIONES GENERALES: La 1era tabla a la izquierda representa una pequeña funcion de probabilidades para una variable aleatoria discreta X
                                        la cual puede tomar valores del 1 al 10 con la probabilidad correspondiente.Dichas probabilidades pueden ser modificadas por el usuario mediante 
                                        un doble click en la celda correspondiente. Cabe recalcar que se debe cumplir que la probabilidades colocadas para cada valor x que toma X deben 
                                        sumar 1, y tener solo valores positivos"),
-                                             plotOutput("F_distribucion")
-                                   ),
+                                           plotOutput("F_distribucion")
                                  ),
-                                 fluidRow(column(width=4, "RESULTADOS OBTENIDOS DEL METODO",
-                                                 div(tableOutput("sim_usuario_tabla"))),
-                                          column(8, box(highchartOutput("usuario_resultado",height = 400), width = 10)),
-                                          
-                                 ),
-                        ),
-
-                        tabPanel("Tabla Guía: Función de Probabilidad Discreta digitada por el usuario",style = "background: #CFFFD8",
+                               ),
+                               fluidRow(column(width=4, "RESULTADOS OBTENIDOS DEL METODO",
+                                               div(tableOutput("sim_usuario_tabla"))),
+                                        column(8, box(highchartOutput("usuario_resultado",height = 400), width = 10)),
+                                        
+                               ),
+                      ),
+                      
+                      tabPanel("Tabla Guía: Función de Probabilidad Discreta digitada por el usuario",style = "background: #CFFFD8",
                                sidebarLayout(
                                  sidebarPanel(
                                    numericInput("m_3", "Escriba el número de intervalos: ",
                                                 value = 100, min = 0, max = 10000),
                                    numericInput("nsim_3", "Ingrese el numero de variables a simular: ",
                                                 value = 1000, min = 0, max = 10000),
-
+                                   
                                    DTOutput("tabla_usuario_1"),
                                    actionButton("go",label = "Imprimir_F2")
                                  ),
-
+                                 
                                  # Show plot
                                  mainPanel(h4("INDICACIONES GENERALES: La 1era tabla a la izquierda representa una pequeña funcion de probabilidades para una variable aleatoria discreta X
                                      la cual puede tomar valores del 1 al 10 con la probabilidad correspondiente.Dichas probabilidades pueden ser modificadas por el usuario mediante
@@ -324,27 +323,27 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                fluidRow(column(width=4, "Resultados",
                                                div(tableOutput("sim_usuario_tabla_1"))),
                                         column(8, box(highchartOutput("usuario_resultado_1",height = 400), width = 10)),
-
-                                ),
-                     ),
-                        tabPanel("Distribución Poisson",style = "background: #CFFFD8",
-                                 h2("Simulación variable discreta con dominio infinito"),
-                                 h3("Distribución de Poisson"),
-                                 p(),
-                                 fluidRow(
-                                   column(width=3,
-                                          numericInput("lambdap", "Ingrese el valor de lambda:", 
-                                                       value = 4, min = 0.01, max = 10, step = 0.01),
-                                          numericInput("numpois", "Ingrese el número de variables a simular:", 
-                                                       value = 200, min = 1, max = 1000),
-                                          column(12, "Resultados",
-                                                 div(tableOutput("poisson")))
-                                   ),
-                                   column(width=9,
-                                          box(highchartOutput("poisson_hc",height = 400), width = 12)))
-                                 
-                        ),
-                        ),
+                                        
+                               ),
+                      ),
+                      tabPanel("Distribución Poisson",style = "background: #CFFFD8",
+                               h2("Simulación variable discreta con dominio infinito"),
+                               h3("Distribución de Poisson"),
+                               p(),
+                               fluidRow(
+                                 column(width=3,
+                                        numericInput("lambdap", "Ingrese el valor de lambda:", 
+                                                     value = 4, min = 0.01, max = 10, step = 0.01),
+                                        numericInput("numpois", "Ingrese el número de variables a simular:", 
+                                                     value = 200, min = 1, max = 1000),
+                                        column(12, "Resultados",
+                                               div(tableOutput("poisson")))
+                                 ),
+                                 column(width=9,
+                                        box(highchartOutput("poisson_hc",height = 400), width = 12)))
+                               
+                      ),
+           ),
 )
 )
 )
