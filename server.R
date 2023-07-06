@@ -194,7 +194,7 @@ sim_cauchy_inversa <- function(nsim_1, mu_1, gamma_1){
   
   for (i in 1:nsim_1) {
     U<- runif(1)
-    cauchy_inversa[i] <- mu_1+gamma_1*tan(pi*U)
+    cauchy_inversa[i] <- tan(pi*U)
   }
   
   
