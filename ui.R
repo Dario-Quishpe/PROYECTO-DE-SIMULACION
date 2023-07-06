@@ -85,7 +85,7 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                h3("Distribución Cauchy"),
                                
                                numericInput("nsim_0", "Ingrese el número de simulaciones a realizar:", 
-                                            value = 700, min = 2, max = 1000),
+                                            value = 27, min = 2, max = 1000),
                                numericInput("mu_0", "Ingrese el valor de mu para simular cauchy:", 
                                             value = 3, min = 0, max = 100),
                                numericInput("gamma_0", "Ingrese el valor de gamma para simular cauchy:", 
