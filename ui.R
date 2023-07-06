@@ -302,6 +302,8 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                       ),
                       
                       tabPanel("Tabla Guía: Función de masa de probabilidad definida por el usuario",style = "background: #CFFFD8",
+                               h2("Método de simulación Tabla Guía"),
+                               h3("Función de masa definida por el usuario"),
                                sidebarLayout(
                                  sidebarPanel(
                                    numericInput("m_3", "Escriba el número de intervalos: ",
