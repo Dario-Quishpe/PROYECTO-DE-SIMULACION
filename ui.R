@@ -9,10 +9,10 @@ options(dplyr.summarise.inform = FALSE)
 
 
 # UI
-shinyUI(fluidPage(fluidRow(column(width=2,align="center",style="background:#DEE9F9",img(src="https://cem.epn.edu.ec/imagenes/logos_institucionales/big_png/BUHO_EPN_big.png", width="150px", height="125px")), # Logo página principal
-                           column(width=8,style="background:#FC8585", h1("TRABAJO GRUPAL DE SIMULACIÓN-2023A ", 
+shinyUI(fluidPage(fluidRow(column(width=2,align="center",style="background:#DEE9F9",img(src="https://cem.epn.edu.ec/imagenes/logos_institucionales/big_png/BUHO_EPN_big.png", width="110px", height="125px")), # Logo página principal
+                           column(width=8,style="background:black", h1("TRABAJO GRUPAL DE SIMULACIÓN-2023A ", 
                                          style = "background:#F9EDE9 ;text-align:center;align-items:center;color:'black';padding:30px;font-size:2.2em")),
-                           column(width=2,align="center",style="background:#DEE9F9",img(src="https://cem.epn.edu.ec/imagenes/logos_institucionales/big_png/BUHO_EPN_big.png", width="150px", height="125px"))
+                           column(width=2,align="center",style="background:#DEE9F9",img(src="https://cem.epn.edu.ec/imagenes/logos_institucionales/big_png/BUHO_EPN_big.png", width="110px", height="125px"))
 ),
 navbarPage("MÓDULOS", theme=shinytheme("cosmo"), 
            navbarMenu("Números pseudoaleatorios",
@@ -226,7 +226,7 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                      ),
            
            navbarMenu("Simulación de Variables Aleatorias discretas", 
-                      tabPanel("Método de Transformación Cuantil", style = "background: #D7F4FC",
+                      tabPanel("Método de Transformación Cuantil", style = "background: #CFFFD8",
                                h2("Método de Transformación Cuantil"),
                                h3("Distribución Binomial"),
                                numericInput("nsim", "Ingrese el número de simulaciones: ", value = 3, min= 2, max = 1000 ),
@@ -254,7 +254,7 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                        
            
            
-                      tabPanel("Tabla guía.Distribución Binomial",style = "background: #D7F4FC",
+                      tabPanel("Tabla guía.Distribución Binomial",style = "background: #CFFFD8",
                                h2("Método de simulación Método de tabla guía"),
                                h3("Distribución Binomial"),
                                numericInput("n1","Ingrese el valor de n:",
@@ -273,7 +273,7 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                
                                
                       ),
-                        tabPanel("Transformación Cuantil. Función de masa de probabilidad definida por el usuario",style = "background: #D7F4FC",
+                        tabPanel("Transformación Cuantil. Función de masa de probabilidad definida por el usuario",style = "background: #CFFFD8",
                                  h2("Método de simulación Transformación Cuantil"),
                                  h3("Función de masa definida por el usuario"),
                                  sidebarLayout(
@@ -287,7 +287,7 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                    
                                    # Show plot
                                    mainPanel(h4("INDICACIONES GENERALES: La 1era tabla a la izquierda representa una pequeña funcion de probabilidades para una variable aleatoria discreta X
-                                       la cual puede tomar valores del 0 al 10 con la probabilidad correspondiente.Dichas probabilidades pueden ser modificadas por el usuario mediante 
+                                       la cual puede tomar valores del 1 al 10 con la probabilidad correspondiente.Dichas probabilidades pueden ser modificadas por el usuario mediante 
                                        un doble click en la celda correspondiente. Cabe recalcar que se debe cumplir que la probabilidades colocadas para cada valor x que toma X deben 
                                        sumar 1, y tener solo valores positivos"),
                                              plotOutput("F_distribucion")
@@ -300,7 +300,7 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                  ),
                         ),
 
-                        tabPanel("Tabla Guía: Función de Probabilidad Discreta digitada por el usuario",style = "background: #D7F4FC",
+                        tabPanel("Tabla Guía: Función de Probabilidad Discreta digitada por el usuario",style = "background: #CFFFD8",
                                sidebarLayout(
                                  sidebarPanel(
                                    numericInput("m_3", "Escriba el número de intervalos: ",
@@ -314,7 +314,7 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
 
                                  # Show plot
                                  mainPanel(h4("INDICACIONES GENERALES: La 1era tabla a la izquierda representa una pequeña funcion de probabilidades para una variable aleatoria discreta X
-                                     la cual puede tomar valores del 0 al 10 con la probabilidad correspondiente.Dichas probabilidades pueden ser modificadas por el usuario mediante
+                                     la cual puede tomar valores del 1 al 10 con la probabilidad correspondiente.Dichas probabilidades pueden ser modificadas por el usuario mediante
                                      un doble click en la celda correspondiente. Cabe recalcar que se debe cumplir que la probabilidades colocadas para cada valor x que toma X deben
                                      sumar 1, y tener solo valores positivos"),
                                            plotOutput("F_distribucion_1")
@@ -326,7 +326,7 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
 
                                 ),
                      ),
-                        tabPanel("Distribución Poisson",style = "background: #D7F4FC",
+                        tabPanel("Distribución Poisson",style = "background: #CFFFD8",
                                  h2("Simulación variable discreta con dominio infinito"),
                                  h3("Distribución de Poisson"),
                                  p(),
