@@ -84,15 +84,9 @@ navbarPage("MÓDULOS", theme=shinytheme("cosmo"),
                                h2("Método de simulación de la transformada inversa"),
                                h3("Distribución Cauchy"),
                                
-<<<<<<< Updated upstream
-                               numericInput("nsim_0", "Ingrese el número de simulaciones a realizar:", 
-                                            value = 700, min = 2, max = 1000),
-                               numericInput("mu_0", "Ingrese el valor de mu para simular cauchy:", 
-=======
                                numericInput("nsim_1", "Ingrese el número de simulaciones a realizar:", 
                                             value = 27, min = 2, max = 1000),
                                numericInput("mu_1", "Ingrese el valor de mu para simular cauchy:", 
->>>>>>> Stashed changes
                                             value = 3, min = 0, max = 100),
                                numericInput("gamma_1", "Ingrese el valor de gamma para simular cauchy:", 
                                             value = 1, min = 1, max = 10),
