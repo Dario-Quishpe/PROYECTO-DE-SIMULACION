@@ -471,7 +471,7 @@ shinyServer(function(input, output, session){
     TG<-TGB(input$n1,input$p1,input$nbtg)
     hchart(TG, "column", hcaes(x = X, y = N))|> 
       hc_title(text = 'Gráfico Barras Método Tabla guía Binomial',width="25")|>
-      hc_add_theme(hc_theme_darkunica())
+      hc_add_theme(hc_theme_elementary())
     
     
   })
@@ -563,7 +563,7 @@ shinyServer(function(input, output, session){
     hchart(tb01$X,breaks=10,name="Histograma de los Nros Aleatorios obtenidos por el metodo aplicado a una variable discreta",color = "#8ACBA9") %>% 
       hc_title(text = 'HISTOGRAMA',align="center",width="10") |> 
       hc_plotOptions(series = list(animation =TRUE)) |> 
-      hc_add_theme(hc_theme_handdrawn())
+      hc_add_theme(hc_theme_elementary())
   })
   output$sim_usuario_tabla <- function(){
     datos<-v$data|>
@@ -610,7 +610,7 @@ shinyServer(function(input, output, session){
     hchart(X,name="",color = "skyblue") %>% 
       hc_title(text = 'HISTOGRAMA',align="center",width="25") |> 
       hc_plotOptions(series = list(animation = FALSE)) |> 
-      hc_add_theme(hc_theme_economist())
+      hc_add_theme(hc_theme_elementary())
   })
   
   output$inv_Cauchy <- function(){
@@ -671,7 +671,8 @@ shinyServer(function(input, output, session){
       hc_xAxis( title = list(text = "Número de Simulación")) %>%
       hc_yAxis(title = list(text = "Valor de la binomial")) %>%
       hc_colors(c("#EA08F3")) %>%
-      hc_plotOptions(column = list(colorByPoint = TRUE))
+      hc_plotOptions(column = list(colorByPoint = TRUE))%>%
+      hc_add_theme(hc_theme_elementary())
     
     hc
     
@@ -715,7 +716,7 @@ shinyServer(function(input, output, session){
     hchart(tb01$X,breaks=10,name="histograma de los Nros Aleatorios obtenidos por el metodo de la tabla guia aplicado a una variable discreta",color = "#8ACBA9") %>%
       hc_title(text = 'HISTOGRAMA',align="center",width="10") |>
       hc_plotOptions(series = list(animation =TRUE)) |>
-      hc_add_theme(hc_theme_handdrawn())
+      hc_add_theme(hc_theme_elementary())
   })
   
   output$sim_usuario_tabla_1 <- function(){
