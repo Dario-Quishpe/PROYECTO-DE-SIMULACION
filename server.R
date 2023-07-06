@@ -634,7 +634,7 @@ shinyServer(function(input, output, session){
     hchart(his2$X,name="histograma de la Distribución de Cauchy por Aceptación y Rechazo",color = "#8ACBA9") %>% 
       hc_title(text = 'HISTOGRAMA',align="center",width="25") |> 
       hc_plotOptions(series = list(animation = FALSE)) |> 
-      hc_add_theme(hc_theme_handdrawn())
+      hc_add_theme(hc_theme_bloom())
   })
   output$AR_Cauchy <- function(){
     res_1 <- data.frame(sim_cauchy(input$nsim_01,input$mu_01,input$gamma_01))
